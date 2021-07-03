@@ -14,6 +14,7 @@ typedef struct {
 enum PAKCET_TYPE {
     PKT_CONNECT,
     PKT_DISCONNECT,
+    PKT_AUDIO,
     PKT_WRITE,
     PKT_READ,
     PKT_READ_REPLY,
@@ -21,6 +22,15 @@ enum PAKCET_TYPE {
     PKT_PING,
     PKT_PING_REPLY,
 };
+
+typedef struct {} PacketConnect;
+typedef struct {} PacketDisconnect;
+
+typedef struct {
+    uint8_t  type;
+    uint16_t numSamples;
+    uint8_t  samples[0];
+} PacketAudio;
 
 typedef struct {
     uint8_t type;
