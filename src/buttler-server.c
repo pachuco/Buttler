@@ -1,4 +1,6 @@
 #include <stdio.h>
+#include <stdint.h>
+#include <stdbool.h>
 #include "enet/enet.h"
 #include "miniaudio.h"
 #include "ini_rw.h"
@@ -17,35 +19,47 @@ void printHelp(void) {
     );
 }
 
-int main(int argc, char *argv[]) {
-    #define FAILPRINTHELP() {printHelp(); return 1;}
-    #define ASSERTMA(X) if ((X) != MA_SUCCESS) {return 2;}
+bool enumPrintInputDevices() {
+    #define ASSERTMA(X) if ((X) != MA_SUCCESS) {return false;}
+    ma_context context;
+    ma_device_info* pCaptureInfos;
+    ma_uint32 captureCount;
+    
+    ASSERTMA(ma_context_init(NULL, 0, NULL, &context));
+    ASSERTMA(ma_context_get_devices(&context, NULL, NULL, &pCaptureInfos, &captureCount));
+    
+    for (ma_uint32 i = 0; i < captureCount; i++) {
+        printf("%d: %s\n", i, pCaptureInfos[i].name);
+    }
+    ma_context_uninit(&context);
+    
+    #undef ASSERTMA
+}
+
+enum ReturnCode {
+    RET_OK;
+    RET_FAIL_PARAM;
+    RET_FAIL_MINIAUDIO;
+}
+ReturnCode main(int argc, char *argv[]) {
+    #define FAILPRINTHELP() {printHelp(); return RET_FAIL_PARAM;}
+    #define PARAM(NR, X) !strcmp(argv[NR], X)
     if (argc < 2) FAILPRINTHELP();
     
-    if        (!strcmp(argv[1], "-help")) {
+    if        (PARAM(1, "-help")) {
         printHelp();
-        return 0;
-    } else if (!strcmp(argv[1], "-list")) {        
-        ma_context context;
-        ma_device_info* pCaptureInfos;
-        ma_uint32 captureCount;
-        
-        ASSERTMA(ma_context_init(NULL, 0, NULL, &context));
-        ASSERTMA(ma_context_get_devices(&context, NULL, NULL, &pCaptureInfos, &captureCount));
-        
-        for (ma_uint32 i = 0; i < captureCount; i++) {
-            printf("%d: %s\n", i, pCaptureInfos[i].name);
-        }
-        ma_context_uninit(&context);
-    } else if (!strcmp(argv[1], "-host")) {
+        return RET_OK;
+    } else if (PARAM(1, "-list")) {        
+        if (!enumPrintInputDevices()) return RET_FAIL_MINIAUDIO;
+    } else if (PARAM(1, "-host")) {
         if (argc < 3) FAILPRINTHELP();
-        ///////////////
+        ///////////////////////
     } else {
         FAILPRINTHELP();
     }
     
     #undef FAILPRINTHELP
-    #undef ASSERTMA
+    #undef PARAM
 }
 
 int enet_main() {
