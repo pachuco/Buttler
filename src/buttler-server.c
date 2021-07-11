@@ -1,7 +1,54 @@
 #include <stdio.h>
 #include "enet/enet.h"
+#include "miniaudio.h"
+#include "ini_rw.h"
 
-int main() {
+void printHelp(void) {
+    printf(
+        "Buttler server component.\n"
+        "Receive HW port I/O commands, output soundcard audio.\n"
+        "\n"
+        "Usage: buttserve -PARAM\n"
+        "\n"
+        "Flags:\n"
+        "   -help: show this help.\n"
+        "   -list: show audio input devices.\n"
+        "   -host INIFILE: start a server from specified ini file.\n"
+    );
+}
+
+int main(int argc, char *argv[]) {
+    #define FAILPRINTHELP() {printHelp(); return 1;}
+    #define ASSERTMA(X) if ((X) != MA_SUCCESS) {return 2;}
+    if (argc < 2) FAILPRINTHELP();
+    
+    if        (!strcmp(argv[1], "-help")) {
+        printHelp();
+        return 0;
+    } else if (!strcmp(argv[1], "-list")) {        
+        ma_context context;
+        ma_device_info* pCaptureInfos;
+        ma_uint32 captureCount;
+        
+        ASSERTMA(ma_context_init(NULL, 0, NULL, &context));
+        ASSERTMA(ma_context_get_devices(&context, NULL, NULL, &pCaptureInfos, &captureCount));
+        
+        for (ma_uint32 i = 0; i < captureCount; i++) {
+            printf("%d: %s\n", i, pCaptureInfos[i].name);
+        }
+        ma_context_uninit(&context);
+    } else if (!strcmp(argv[1], "-host")) {
+        if (argc < 3) FAILPRINTHELP();
+        ///////////////
+    } else {
+        FAILPRINTHELP();
+    }
+    
+    #undef FAILPRINTHELP
+    #undef ASSERTMA
+}
+
+int enet_main() {
     if (enet_initialize () != 0) {
         printf("An error occurred while initializing ENet.\n");
         return 1;
