@@ -1,4 +1,6 @@
 /bin/*
-!/bin/*.ini
 /lib/bin/*
+*.log
+
+!/bin/*.ini
 !.keep
