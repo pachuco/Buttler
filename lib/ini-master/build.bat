@@ -19,7 +19,7 @@ exit /B 0
 :cobj
 if "%1" EQU "" exit /B 0
 echo compiling %1.c
-gcc -o %outpath%\%1.o -c src\%1.c %linkinc% %opts% 2> %errlog%
+gcc -o %outpath%\%1.o -c %1.c %linkinc% %opts% 2> %errlog%
 call :checkerr
 shift /1
 goto cobj

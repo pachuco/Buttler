@@ -36,12 +36,12 @@ bool enumPrintInputDevices() {
     #undef ASSERTMA
 }
 
-enum ReturnCode {
-    RET_OK;
-    RET_FAIL_PARAM;
-    RET_FAIL_MINIAUDIO;
-}
-ReturnCode main(int argc, char *argv[]) {
+typedef enum {
+    RET_OK,
+    RET_FAIL_PARAM,
+    RET_FAIL_MINIAUDIO,
+} RETURNCODE;
+RETURNCODE main(int argc, char *argv[]) {
     #define FAILPRINTHELP() {printHelp(); return RET_FAIL_PARAM;}
     #define PARAM(NR, X) !strcmp(argv[NR], X)
     if (argc < 2) FAILPRINTHELP();
