@@ -7,10 +7,10 @@ set opts=-std=c99 -Os -s -Wall -Wextra
 set linkinc=
 set errlog=%outpath%\inirw_err.log
 
-del %outpath%\inirw.a
-call :cobj ini_rw
+del %outpath%\libini.a
+call :cobj ini
 
-ar r %outpath%\libinirw.a %outpath%\*.o
+ar r %outpath%\libini.a %outpath%\*.o
 del %outpath%\*.o
 
 exit /B 0
@@ -19,7 +19,7 @@ exit /B 0
 :cobj
 if "%1" EQU "" exit /B 0
 echo compiling %1.c
-gcc -o %outpath%\%1.o -c %1.c %linkinc% %opts% 2> %errlog%
+gcc -o %outpath%\%1.o -c src\%1.c %linkinc% %opts% 2> %errlog%
 call :checkerr
 shift /1
 goto cobj

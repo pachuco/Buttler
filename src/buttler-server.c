@@ -3,7 +3,7 @@
 #include <stdbool.h>
 #include "enet/enet.h"
 #include "miniaudio.h"
-#include "ini_rw.h"
+#include "ini.h"
 
 void printHelp(void) {
     printf(
@@ -53,7 +53,9 @@ ReturnCode main(int argc, char *argv[]) {
         if (!enumPrintInputDevices()) return RET_FAIL_MINIAUDIO;
     } else if (PARAM(1, "-host")) {
         if (argc < 3) FAILPRINTHELP();
-        ///////////////////////
+        
+        
+        
     } else {
         FAILPRINTHELP();
     }
