@@ -1,3 +1,7 @@
+/*
+	Enet engine implementation.
+*/
+
 #include "enet_engine.h"
 
 int enet_close() {

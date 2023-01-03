@@ -1,3 +1,7 @@
+/*
+	Server/lobby implementation.
+*/
+
 #include "server.h"
 
 close() {
