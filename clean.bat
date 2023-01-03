@@ -3,6 +3,6 @@
 @echo off
 
 :clean
-	rm bin/*
+	rm bin/* :: this is not unix. replace with `del`
 
 clean
