@@ -4,7 +4,7 @@
 
 #include "logger.h"
 
-int factory_create_logger() {
+LOGGER * factory_create_logger() {
 	return (struct LOGGER*)malloc(sizeof(LOGGER));
 }
 

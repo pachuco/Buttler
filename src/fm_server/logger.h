@@ -6,11 +6,11 @@
 #define LOGGER_H
 
 // Structures:
-// TODO.
+enum LOG = { FILE, STDOUT, STDERR };
 
 // Signatures:
 
-int factory_create_logger();
+LOGGER * factory_create_logger();
 
 int log_info();
 int log_error();
