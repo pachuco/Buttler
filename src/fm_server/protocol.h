@@ -1,3 +1,6 @@
+/*
+	Packet header signatures for respective sides.
+*/
 
 #define HEADER_SIZE                 0xAA
 #define PAYLOAD_SIZE                0xAB

@@ -1,3 +1,9 @@
+/*
+Usage:
+	fm_server -a "0.0.0.0" -p 23
+	fm_server --config cfg.ini
+*/
+
 #include <stdio.h>
 #include <stdlib.h>
 
