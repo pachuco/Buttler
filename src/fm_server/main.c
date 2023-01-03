@@ -4,13 +4,10 @@ Usage:
 	fm_server --config cfg.ini
 */
 
-#include <stdio.h>
-#include <stdlib.h>
+#include "globals.h"
 
 #include "logger.h"
 #include "config.h"
-
-#include "globals.h"
 
 int init(int argc, char** argv[]) {
 
