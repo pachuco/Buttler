@@ -14,3 +14,6 @@ set LNK=link.exe
 
 
 :build_server
+
+
+:build_common
