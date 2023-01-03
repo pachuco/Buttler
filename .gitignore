@@ -1,6 +1,0 @@
-/bin/*
-/lib/bin/*
-*.log
-
-!/bin/*.ini
-!.keep
