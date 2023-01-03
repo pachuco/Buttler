@@ -19,18 +19,22 @@ typedef struct LOGGER {
 
 // Signatures:
 
+int init_logger(LOGGER * logger);
+
 LOGGER * factory_create_logger(int TYPE);
 
-int log_info(char * message);
-int log_error(char * message);
-int log_warning(char * message);
+int log_info(LOGGER * logger, char * message);
+int log_error(LOGGER * logger, char * message);
+int log_warning(LOGGER * logger, char * message);
 
 char * get_current_time_str();
 
 void set_logger(LOGGER * newLogger);
 LOGGER * get_logger();
 
-void enable_logger();
-void disable_logger();
+void enable_logger(LOGGER * logger);
+void disable_logger(LOGGER * logger);
+
+void terminate_logger(LOGGER * logger);
 
 #endif

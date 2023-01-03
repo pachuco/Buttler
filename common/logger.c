@@ -4,28 +4,48 @@
 
 #include "logger.h"
 
+int init_logger(LOGGER * logger) {
+	//open file if necessary.
+}
+
 LOGGER * factory_create_logger(int TYPE) {
 	return (struct LOGGER*)malloc(sizeof(LOGGER));
 }
 
-int log_info(char * message) {
-	if (ENABLED_LOGGING == 0) {
-		//log
-		if (
+int log_info(LOGGER * logger, char * message) {
+	if (logger->ENABLED_LOGGING == 0) {
+
+		if (logger->TYPE_OF_LOGGER == LOG.FILE) {
+			//log to file
+		} else if (logger->TYPE_OF_LOGGER = LOG.STDOUT) {
+			//log to stdout
+		} else {
+			//log to stderr
+		}
 	}
 }
 
-
-int log_error(char * message) {
-	if (ENABLED_LOGGING == 0) {
-                //log
+int log_error(LOGGER * logger, char * message) {
+	if (logger->ENABLED_LOGGING == 0) {
+                if (logger->TYPE_OF_LOGGER == LOG.FILE) {
+                        //log to file
+                } else if (logger->TYPE_OF_LOGGER = LOG.STDOUT) {
+                        //log to stdout
+                } else {
+                        //log to stderr
+                }
         }
 }
 
-
-int log_warning(char * message) {
-	if (ENABLED_LOGGING == 0) {
-                //log
+int log_warning(LOGGER * logger, char * message) {
+	if (logger->ENABLED_LOGGING == 0) {
+		if (logger->TYPE_OF_LOGGER == LOG.FILE) {
+                        //log to file
+                } else if (logger->TYPE_OF_LOGGER = LOG.STDOUT) {
+                        //log to stdout
+                } else {
+                        //log to stderr
+                }
         }
 }
 
@@ -42,9 +62,13 @@ LOGGER * get_logger() {
 }
 
 void enable_logger(LOGGER * logger) {
-	ENABLED_LOGGING = 0;
+	logger->ENABLED_LOGGING = 0;
 }
 
 void disable_logger(LOGGER * logger) {
-	ENABLED_LOGGING = 1;
+	logger->ENABLED_LOGGING = 1;
+}
+
+void terminate_logger(LOGGER * logger) {
+	//close file, if necessary.
 }
