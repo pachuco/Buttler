@@ -4,9 +4,9 @@
 //byte order?
 //hungarian notation
 
-LOGGER struct * global_logger = NULL;
-CONFIG struct * global_config = NULL;
-SERVER struct * global_server_lobby = NULL;
+struct LOGGER * global_logger = NULL;
+struct CONFIG * global_config = NULL;
+struct SERVER * global_server_lobby = NULL;
 
 int connected_clients = 0;
 short listening_port = 23;
@@ -32,7 +32,7 @@ int init(int argc, char** argv[]) {
 
     { // Ini Config
         log_info(global_logger, "Reading .ini configuration file...");
-        // move this to config file. CONFIG_FILE struct config_file = malloc(sizeof(CONFIG_FILE));
+        // move this to config file. struct CONFIG * config_file = (struct CONFIG*)malloc(sizeof(CONFIG));
 	global_config = factory_create_config();
         open_config(config_file);
     }
@@ -51,7 +51,7 @@ int main(int argc, char** argv[])
 
     { // Server/Lobby
         log_info(global_logger, "Setting up server and lobby...");
-        // move to server side file. SERVER_LOBBY struct server_lobby = malloc(sizeof(SERVER_LOBBY));
+        // move to server side file. struct SERVER_LOBBY * server_lobby = (struct SERVER*)malloc(sizeof(SERVER_LOBBY));
 	global_server_lobby = factory_create_server();
         start_server(server_lobby, port); //on a new thread. use pthread.
     }
