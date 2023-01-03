@@ -17,7 +17,7 @@ int log_info(LOGGER * logger, char * message) {
 
 		if (logger->TYPE_OF_LOGGER == LOG.FILE) {
 			//log to file
-		} else if (logger->TYPE_OF_LOGGER = LOG.STDOUT) {
+		} else if (logger->TYPE_OF_LOGGER == LOG.STDOUT) {
 			//log to stdout
 		} else {
 			//log to stderr
@@ -29,7 +29,7 @@ int log_error(LOGGER * logger, char * message) {
 	if (logger->ENABLED_LOGGING == 0) {
                 if (logger->TYPE_OF_LOGGER == LOG.FILE) {
                         //log to file
-                } else if (logger->TYPE_OF_LOGGER = LOG.STDOUT) {
+                } else if (logger->TYPE_OF_LOGGER == LOG.STDOUT) {
                         //log to stdout
                 } else {
                         //log to stderr
@@ -41,7 +41,7 @@ int log_warning(LOGGER * logger, char * message) {
 	if (logger->ENABLED_LOGGING == 0) {
 		if (logger->TYPE_OF_LOGGER == LOG.FILE) {
                         //log to file
-                } else if (logger->TYPE_OF_LOGGER = LOG.STDOUT) {
+                } else if (logger->TYPE_OF_LOGGER == LOG.STDOUT) {
                         //log to stdout
                 } else {
                         //log to stderr
