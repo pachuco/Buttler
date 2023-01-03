@@ -6,7 +6,7 @@
 
 > In this repo, precompiled binaries are provided.
 
-> Feel free to build them yourself if you want don't want to use them.
+> Feel free to build them yourself if you don't want to use them.
 
 * enet		[v0.0]
 * libcthread	[v0.0]
