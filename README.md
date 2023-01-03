@@ -4,7 +4,7 @@
 
 ### Dependencies
 
-> In this repo, precompiled binaries are provided.
+> Precompiled binaries are provided in /lib.
 
 > Feel free to build them yourself if you don't want to use them.
 
@@ -18,8 +18,6 @@
 > build.bat all
 
 ### How To Use
-
-> Instructions.
 
 * Run `fm_server -a "0.0.0.0" -p 23`
 * Connect locally or remotely with `fm_client -a "127.0.0.1" -p 23`
