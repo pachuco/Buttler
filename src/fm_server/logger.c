@@ -1,9 +1,24 @@
+/*
+	Generic logger implementation.
+*/
+
+#include "logger.h"
 
 int factory_create_logger() {
-    return malloc(sizeof(LOGGER));
+	return (struct LOGGER*)malloc(sizeof(LOGGER));
 }
 
-int set_log() {
+int log_info() {
+
+}
+
+
+int log_error() {
+
+}
+
+
+int log_warning() {
 
 }
 
@@ -11,18 +26,10 @@ char * get_current_time_str() {
 
 }
 
-int log() {
+int set_logger() {
 
 }
 
-int log_info() {
-
-}
-
-int log_error() {
-
-}
-
-int log_warning() {
+int get_logger() {
 
 }
