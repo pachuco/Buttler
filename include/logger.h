@@ -7,13 +7,15 @@
 
 // Structures:
 
-int ENABLED_LOGGING = -1;
-int TYPE_OF_LOGGER = -1;
-
 enum LOG = { FILE = 1, STDOUT = 2, STDERR = 3 };
 
-FILE * log_file = NULL;
-char *log_file_path = "";
+typedef struct LOGGER {
+	int ENABLED_LOGGING = -1;
+	int TYPE_OF_LOGGER = -1;
+
+	FILE * log_file = NULL;
+	char *log_file_path = NULL;
+} LOGGER;
 
 // Signatures:
 

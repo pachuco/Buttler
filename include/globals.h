@@ -17,9 +17,9 @@
 
 // Primary structures.
 
-struct LOGGER * global_logger = NULL;
-struct CONFIG * global_config = NULL;
-struct SERVER * global_server_lobby = NULL;
+LOGGER * global_logger = NULL;
+CONFIG * global_config = NULL;
+SERVER * global_server_lobby = NULL;
 
 // Counters and configurables.
 

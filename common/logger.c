@@ -41,10 +41,10 @@ LOGGER * get_logger() {
 	return global_logger;
 }
 
-void enable_logger() {
+void enable_logger(LOGGER * logger) {
 	ENABLED_LOGGING = 0;
 }
 
-void disable_logger() {
+void disable_logger(LOGGER * logger) {
 	ENABLED_LOGGING = 1;
 }

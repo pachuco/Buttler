@@ -12,8 +12,9 @@ Usage:
 int init(int argc, char** argv[]) {
 
     { // Logger
-        global_logger = factory_create_logger();
-        set_log(global_logger, LOG.FILE, "."));
+        global_logger = factory_create_logger(LOG.FILE);
+        set_log_path(global_logger, ".");
+	enable_logger(global_logger);
 
         log_info(global_logger, "Logger ready...");
     }
