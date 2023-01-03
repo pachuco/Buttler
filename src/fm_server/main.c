@@ -1,6 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#include "logger.h"
+#include "config.h"
+
+#include "globals.h"
+
 //byte order?
 //hungarian notation
 
