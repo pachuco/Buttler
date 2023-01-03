@@ -14,7 +14,7 @@ typedef struct LOGGER {
 	int TYPE_OF_LOGGER = -1;
 
 	FILE * log_file = NULL;
-	char *log_file_path = NULL;
+	char * log_file_path = NULL;
 } LOGGER;
 
 // Signatures:
@@ -30,6 +30,7 @@ int log_warning(LOGGER * logger, char * message);
 char * get_current_time_str();
 
 void set_logger(LOGGER * newLogger);
+void set_log_path(LOGGER logger, char * path);
 LOGGER * get_logger();
 
 void enable_logger(LOGGER * logger);

@@ -57,6 +57,10 @@ void set_logger(LOGGER * newLogger) {
 	global_logger = newLogger;
 }
 
+void set_log_path(LOGGER * logger, char * path) {
+	logger->log_file_path = path;
+}
+
 LOGGER * get_logger() {
 	return global_logger;
 }
