@@ -10,7 +10,7 @@
 enum LOG = { FILE = 1, STDOUT = 2, STDERR = 3 };
 
 typedef struct LOGGER {
-	int ENABLED_LOGGING = -1;
+	int ENABLED_LOGGING = -1; //these assignments cannot be done in C. move them to init_logger().
 	int TYPE_OF_LOGGER = -1;
 
 	FILE * log_file = NULL;
