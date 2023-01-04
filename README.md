@@ -8,8 +8,8 @@
 
 > Feel free to build them yourself if you don't want to use them.
 
-* enet		[v0.0]
-* libcthread	[v0.0]
+* enet		[v1.3.17]
+* libcthread	[v20220102-alpha]
 * mbedtls	[v0.0]
 * miniaudio	[v0.0]
 
