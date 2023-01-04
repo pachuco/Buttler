@@ -4,10 +4,15 @@ Usage:
 	fm_server --config cfg.ini
 */
 
-#include "globals.h"
-
 #include "logger.h"
 #include "config.h"
+#include "cthreads.h"
+#include "cipher.h"
+#include "enet_engine.h"
+#include "client.h"
+
+#include "globals.h"
+
 
 int init(int argc, char** argv[]) {
 
@@ -35,7 +40,9 @@ int init(int argc, char** argv[]) {
 
     { // Initialization
         log_info(global_logger, "Initializing structures...");
-        //handle initialization.
+
+	global_cipher = factory_create_cipher(CIPHER_TYPE.TWIFISH);
+	server_thread = factory_create_cthreads(&routine);
     }
 
     return 0;
