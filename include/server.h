@@ -5,6 +5,11 @@
 #ifndef SERVER_H
 #define SERVER_H
 
+#include "thread.h"
+#include "enet_engine.h"
+#include "logger.h"
+#include "config.h"
+
 int start_server();
 int handle_io_request();
 int on_connected();

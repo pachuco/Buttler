@@ -13,6 +13,8 @@ int wait_thread();
 int stop_thread();
 int pause_thread();
 
+//separate these below in two distinctive files.
+
 // Conditional compilation.
 
 	#if defined(WIN32) && !defined(UNIX)

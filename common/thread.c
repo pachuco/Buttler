@@ -63,6 +63,8 @@ int pause_thread() {
 
 }
 
+//separate these in two distinctive files.
+
 // Win32 Impl. ========================================
 
 int run_thread_win32() {
