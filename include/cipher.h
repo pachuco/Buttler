@@ -20,14 +20,14 @@ typedef struct CIPHER {
 CIPHER * factory_create_cipher();
 
 int init_alloc(); //TODO
+int destruct(); //dealloc pointers
+
 int set_key(KEY * key, int size);
 int set_algorithm(int ALGORITHM_TYPE);
 
-int encrypt(CIPHER * cipher, char * message);
-int decrypt(CIPHER * cipher, char * message);
+int encrypt(CIPHER * cipher, char * message, short rounds);
+int decrypt(CIPHER * cipher, char * message, short rounds);
 
 int cipher_impl(); //TODO
-
-//don't forget to dealloc() all these pointers and from the other files when done with them in it's own functions.
 
 #endif

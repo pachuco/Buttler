@@ -7,6 +7,8 @@
 
 #include <enet/enet.h>
 
+#include "logger.h"
+
 #define BUFFER_SIZE 4096
 
 enum CONNECTION_STATE = { CONNECTED = 0, DISCONNECTED = 1, UNRESPONSIVE = 2, POLLED = 3 };
@@ -26,32 +28,8 @@ typedef struct ENET_SERVER {
 	long last_response
 } ENET_INFO;
 
-typedef struct ENET_CLIENT {
-	ENetAddress * addr,
-	ENetHost * host_client,
-
-	long bytes_written,
-	long bytes_read,
-
-	char send_buffer[BUFFER_SIZE],
-	char recv_buffer[BUFFER_SIZE],
-
-	int connection_state,
-	long last_response
-} ENET_CLIENT;
-
-typedef struct ENET_PACKET {
-	ENetPacket packet,
-
-	int packet_state,
-	long packet_size
-} ENET_PACKET;
-
 // the main io service.
 int enet_poll_run();
-
-
-
 
 
 int enet_close();

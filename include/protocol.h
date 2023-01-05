@@ -28,3 +28,12 @@
 
 #define CLIENT_RESERVED             0xFF
 #define SERVER_RESERVED             0xFE
+
+// =======================================
+
+typedef struct ENET_PACKET {
+        ENetPacket packet,
+
+        int packet_state,
+        long packet_size
+} ENET_PACKET;

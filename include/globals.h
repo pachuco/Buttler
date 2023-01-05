@@ -10,11 +10,12 @@
 LOGGER * global_logger = NULL;
 CONFIG * global_config = NULL;
 SERVER * global_server_lobby = NULL;
+CIPHER * global_cipher = NULL;
 
 // Counters and configurables.
 
-short LISTENING_PORT = 23;
 char * IP_ADDRESS = NULL;
+short LISTENING_PORT = 23;
 
 int CONNECTED_CLIENTS = 0;
 
