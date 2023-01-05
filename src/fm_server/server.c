@@ -118,7 +118,7 @@ int deserialize_packet() {
 	//NBO, packet unwrapping, decryption.
 }
 
-int close_client() {
+void close_client() {
 
 }
 
@@ -130,30 +130,30 @@ int accept() {
 
 }
 
-handle_user_opt_in() {
+int handle_user_opt_in() {
 
 }
 
-handle_user_opt_out() {
+int handle_user_opt_out() {
 
 }
 
-broadcast() {
+int broadcast() {
 
 }
 
-broadcast_packet() {
+int broadcast_packet() {
 
 }
 
-on_receive_packet() {
+int on_receive_packet() {
 
 }
 
-on_sent() {
+int on_sent() {
 
 }
 
-on_sent_packet() {
+int on_sent_packet() {
 
 }
