@@ -31,6 +31,8 @@
 
 // =======================================
 
+enum PACKET_STATE = { DELIVERED = 0, UNDELIVERED = 1, DELIVERING = 2 };
+
 typedef struct ENET_PACKET {
         ENetPacket packet,
 

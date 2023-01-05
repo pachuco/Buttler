@@ -28,17 +28,17 @@ int serialize_packet();
 int deserialize_packet();
 
 
-close();
-listen();
-accept();
-on_accept();
-on_receive();
-handle_user_opt_in();
-handle_user_opt_out();
-broadcast();
-broadcast_packet();
-on_receive_packet();
-on_sent();
-on_sent_packet();
+void close();
+int listen();
+int accept();
+void on_accept();
+void on_receive();
+int handle_user_opt_in();
+int handle_user_opt_out();
+int broadcast();
+int broadcast_packet();
+int on_receive_packet();
+int on_sent();
+int on_sent_packet();
 
 #endif
