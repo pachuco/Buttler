@@ -15,19 +15,21 @@ Usage:
 #include "thread.h"
 #include "cipher.h"
 #include "client.h"
+#include "input.h"
 
 #include "globals.h"
 
 const int MINIMUM_ARGS = 2
 
-int init(int argc, char** argv[]) {
+int handle_arguments(int argc, char** argv[]) {
 
-    if (argc < MINIMUM_ARGS) {
-	printf("Usage: ...");
-	exit(1);
-    } else {
-	//handle_arguments_parsing(argc, argv);
-    }
+    log_info(global_logger, "Server started at @time@...");
+    log_info(global_logger, "Parsing arguments...");
+
+    //read and parse arguments...
+}
+
+int init(int argc, char** argv[]) {
 
     { // Logger
         global_logger = factory_create_logger(LOG.FILE);
@@ -35,13 +37,6 @@ int init(int argc, char** argv[]) {
 	enable_logger(global_logger);
 
         log_info(global_logger, "Logger ready...");
-    }
-
-    { // Arguments
-        log_info(global_logger, "Server started at @time@...");
-        log_info(global_logger, "Parsing arguments...");
-
-        //read and parse arguments something something if argc and argv[2.];
     }
 
     { // Ini Config
@@ -63,13 +58,22 @@ int init(int argc, char** argv[]) {
 
 int main(int argc, char** argv[])
 {
+    if (argc < MINIMUM_ARGS) {
+        printf("Usage: ...");
+       	return 1;
+    } else {
+        handle_arguments(argc, argv)
+    }
+
     init(argc, argv);
+
+    // =====================
 
     { // Server/Lobby
         log_info(global_logger, "Setting up server and lobby...");
 
 	global_server_lobby = factory_create_server();
-        start_server(server_lobby, port); //on a new thread. use pthread.
+        start_server(server_lobby, port); //on a new thread.
     }
 
     { // Business Logic
