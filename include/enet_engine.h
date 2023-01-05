@@ -28,8 +28,12 @@ typedef struct ENET_SERVER {
 } ENET_INFO;
 
 // the main io service.
-int enet_poll_run();
+int enet_init();
+int enet_cleanup();
 
+int enet_manage_hosts();
+
+// Propagators
 
 int enet_close();
 int enet_listen();

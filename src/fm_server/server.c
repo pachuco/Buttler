@@ -4,38 +4,101 @@
 
 #include "server.h"
 
-int start_server() {
-	//main while loop for handling connections
+int init(SERVER * this_server) {
 
-	//on it's own dedicated thread.
+	this_server->engine = (struct ENET_SERVER*)malloc(sizeof(ENET_SERVER*));
+	enet_init(this_server->engine);
 
-	//call "this"->listen(port);
+	//error check
 
-	//update log.
+	return 0;
 }
 
-int handle_io_request_recv() {
+int destructor(SERVER * this_server) {
 
-	//check incoming buffer size.
-	//read buffer.
+	enet_cleanup(this_server);
+}
+
+SERVER * factory_create_server() {
+	return (struct SERVER*)malloc(sizeof(SERVER*));
+}
+
+void start_server(SERVER * this_server) {
+	init(this_server);
+
+	if (!this_server->is_listening) {
+		this_server->listening_thread = new thread.@handle_io_requests;
+	} else {
+		//server already started. do nothing.
+		//warn/print out feedback to user
+	}
+}
+
+void stop_server(SERVER * this_server) {
+	this_server->is_listening = false;
+}
+
+int handle_io_requests() {
+	this_server->is_listening = true;
+	this_server->listen(port);
+
+	//update log.
+
+	while (context->is_listening) {
+		this_server->bind_callbacks(
+			on_io_request_received,
+			on_io_request_sent,
+			on_io_request_connected,
+			on_io_request_disconnected
+		);
+	}
+}
+
+int bind_callback(routine pointers) {
+	//DISPATCH TO APPROPRIATE CALLBACK.
+
+	enet_engine->io_receive_callback = pointers;
+	enet_engine->io_send_callback = pointers;
+	enet_engine->io_connect_callback = pointers;
+	enet_engine->io_disconnect_callback = pointers;
+}
+
+/////////////////////////////////////////////////////////////////////
+// Dispatch Handlers
+/////////////////////////////////////////////////////////////////////
+
+int on_io_request_received(IO_CONTEXT * context //probably a void pointer needed) {
+
+	check incoming buffer size.
+	read buffer.
 
 
-	//append to bytes read statistics [unless enet tracks them itself]
+	decrypt packet();
+	parse_packet_header();
+
+	append to bytes read statistics [unless enet tracks them itself]
 
 
-	//parsing of packets
+	parsing of packets
 
 	//see if enet supports this or if it's needed to loop to extract the buffer
 
-	//case CLIENT_OPT_IN
+	case CLIENT_OPT_IN
 		handle_client_opt_in();
-	//case CLIENT_OPT_OUT
+	break;
+
+	case CLIENT_OPT_OUT
 		handle_client_opt_out();
-	//case CLIENT_FM_COMMAND
+	break;
+
+	case CLIENT_FM_COMMAND
 		handle_client_fm_command();
-	//case CLIENT_READY
+	break;
+
+	case CLIENT_READY
 		handle_client_ready();
-			//trigger heartbeat and audio chunk streaming
+		//trigger heartbeat and audio chunk streaming
+	break;
 
 	//update log.
 
@@ -43,7 +106,7 @@ int handle_io_request_recv() {
 
 //decouple the enet engine from the audio parsing/streaming. it needs it's own module. pass messages around instead.
 
-int handle_io_request_send() {
+int on_io_request_sent() {
 	//loop to send buffer
 
 
@@ -52,7 +115,7 @@ int handle_io_request_send() {
 	//update log.
 }
 
-int on_accept_connected() {
+int on_io_request_connected() {
 	//spawn thread for client.
 
 	//check MAX_THREAD property to see if can accept connection or not.
@@ -67,6 +130,14 @@ int on_accept_connected() {
 
 	//update log
 }
+
+int on_io_request_disconnected() {
+
+}
+
+/////////////////////////////////////////////////////////////////////
+// Protocol parsing handlers.
+/////////////////////////////////////////////////////////////////////
 
 int on_handshake_exchange(client_struct) {
 	//timestamp packets and/or TLS handshaking for certificates/encrypted traffic.
@@ -122,14 +193,6 @@ void close_client() {
 
 }
 
-int listen() {
-
-}
-
-int accept() {
-
-}
-
 int handle_user_opt_in() {
 
 }
@@ -143,17 +206,5 @@ int broadcast() {
 }
 
 int broadcast_packet() {
-
-}
-
-int on_receive_packet() {
-
-}
-
-int on_sent() {
-
-}
-
-int on_sent_packet() {
 
 }
