@@ -5,10 +5,16 @@
 #ifndef SERVER_H
 #define SERVER_H
 
+#include "protocol.h"
+
 #include "thread.h"
 #include "enet_engine.h"
+#include "client.h"
 #include "logger.h"
 #include "config.h"
+
+#include "cipher.h"
+#include "util.h"
 
 int start_server();
 int handle_io_request();
