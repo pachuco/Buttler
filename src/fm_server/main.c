@@ -4,6 +4,16 @@ Usage:
 	fm_server --config cfg.ini
 */
 
+// Internal libraries.
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+// External libraries.
+#include <enet.h>	//move to enet_engine
+#include <mbedtls.h>	//move to cipher
+
+// Project Header files.
 #include "logger.h"
 #include "config.h"
 #include "cthreads.h"
@@ -13,8 +23,16 @@ Usage:
 
 #include "globals.h"
 
+const int MINIMUM_ARGS = 2
 
 int init(int argc, char** argv[]) {
+
+    if (argc < MINIMUM_ARGS) {
+	printf("Usage: ...");
+	exit(1);
+    } else {
+	//handle_arguments_parsing(argc, argv);
+    }
 
     { // Logger
         global_logger = factory_create_logger(LOG.FILE);
@@ -41,7 +59,7 @@ int init(int argc, char** argv[]) {
     { // Initialization
         log_info(global_logger, "Initializing structures...");
 
-	global_cipher = factory_create_cipher(CIPHER_TYPE.TWIFISH);
+	global_cipher = factory_create_cipher(CIPHER_TYPE.TWOFISH);
 	server_thread = factory_create_cthreads(&routine);
     }
 
