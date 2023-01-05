@@ -5,6 +5,18 @@
 #ifndef SERVER_H
 #define SERVER_H
 
+int start_server();
+int handle_io_request();
+int on_connected();
+int on_handshake_exchange();
+int on_disconnect();
+int on_terminate();
+int on_heartbeat();
+
+int serialize_packet();
+int deserialize_packet();
+
+
 close();
 listen();
 accept();
