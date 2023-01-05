@@ -62,7 +62,7 @@ int main(int argc, char** argv[])
         printf("Usage: ...");
        	return 1;
     } else {
-        handle_arguments(argc, argv)
+        handle_arguments(argc, argv);
     }
 
     init(argc, argv);

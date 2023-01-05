@@ -1,14 +1,7 @@
+/*
+	Implementation of Yamaha FM_Device.
+*/
 
-your
+#include "fm_device.h"
 
-own
-
-interface
-
-towards
-
-the device
-
-and commands
-
-that can be executed/called
+// Your own implementation towards the device and commands that can be executed/called.
