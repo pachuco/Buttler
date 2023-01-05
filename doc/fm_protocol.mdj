@@ -1922,7 +1922,7 @@
 									"top": 136,
 									"width": 79.97900390625,
 									"height": 40,
-									"text": "No encryption"
+									"text": "Encrypted Protocol"
 								},
 								{
 									"_type": "UMLNoteView",
@@ -2199,19 +2199,6 @@
 									"width": 90.919921875,
 									"height": 25,
 									"text": "async_stream"
-								},
-								{
-									"_type": "UMLNoteView",
-									"_id": "AAAAAAGFdL/77LaQt+I=",
-									"_parent": {
-										"$ref": "AAAAAAGFdIiolbRH5UI="
-									},
-									"font": "Arial;13;0",
-									"left": 760,
-									"top": 432,
-									"width": 120,
-									"height": 48,
-									"text": "Hungarian Notation"
 								}
 							]
 						}
@@ -2460,7 +2447,8 @@
 					"_parent": {
 						"$ref": "AAAAAAGFdIiolLRFlj4="
 					},
-					"name": "Role1"
+					"name": "Role1",
+					"type": ""
 				},
 				{
 					"_type": "UMLAttribute",
@@ -2468,7 +2456,8 @@
 					"_parent": {
 						"$ref": "AAAAAAGFdIiolLRFlj4="
 					},
-					"name": "Role2"
+					"name": "Role2",
+					"type": ""
 				}
 			]
 		}
