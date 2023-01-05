@@ -5,6 +5,8 @@
 #ifndef CIPHER_H
 #define CIPHER_H
 
+#include <mbedtls.h>
+
 enum CIPHER_TYPE = { RSA = 0, AES = 1, TWOFISH = 2, SERPENT = 3 };
 
 typedef struct KEY {

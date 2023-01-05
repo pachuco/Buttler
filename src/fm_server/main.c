@@ -9,16 +9,11 @@ Usage:
 #include <stdlib.h>
 #include <string.h>
 
-// External libraries.
-#include <enet.h>	//move to enet_engine
-#include <mbedtls.h>	//move to cipher
-
 // Project Header files.
 #include "logger.h"
 #include "config.h"
 #include "thread.h"
 #include "cipher.h"
-#include "enet_engine.h"
 #include "client.h"
 
 #include "globals.h"
