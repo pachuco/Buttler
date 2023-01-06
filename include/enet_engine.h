@@ -31,6 +31,7 @@ typedef struct ENET_SERVER {
 int enet_init();
 int enet_cleanup();
 
+int enet_start_engine();
 int enet_manage_hosts();
 
 // Propagators

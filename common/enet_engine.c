@@ -23,6 +23,14 @@ int enet_cleanup() {
         atexit(enet_deinitialize);
 }
 
+int enet_start_engine() {
+	server = enet_host_create (& address /* the address to bind the server host to */, 
+                             32      /* allow up to 32 clients and/or outgoing connections */,
+                              2      /* allow up to 2 channels to be used, 0 and 1 */,
+                              0      /* assume any amount of incoming bandwidth */,
+                              0      /* assume any amount of outgoing bandwidth */);
+}
+
 int enet_manage_hosts() {
 	while (enet_host_service (client, & event, 1000) > 0)
 	{
