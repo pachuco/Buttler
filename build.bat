@@ -1,26 +1,39 @@
 :: TODO.
 
 @echo off
-:: substitute these and provide path too.
+
 set CC=gcc.exe
 set LNK=link.exe
 
 :: =================
 
-:build_all
-	build_common()
-	build_server()
-	build_client()
-	link_objs()
+:all
+	call common
+	call server
+	call client
+	call link
 
-:build_client
-	gcc -Wall -I include/ src/fm_client/client.c src/fm_client/main.c
+:: =================
 
-:build_server
-	gcc -Wall -I include/ src/fm_server/server.c src/fm_server/main.c src/fm_server/fm_device.c
+:: set output directory to /bin for all these commands below
 
-:build_common
-	gcc -Wall -I include/ common/thread.c common/config.c common/cipher.c common/client.c common/logger.c common/enet_engine.c
+:client
+	%CC% -Wall -I include/ src/fm_client/client.c src/fm_client/main.c
 
-:link_objs
-	gcc -l
+:server
+	%CC% -Wall -I include/ src/fm_server/server.c src/fm_server/main.c src/fm_server/fm_device.c
+
+:common
+	%CC% -Wall -I include/ common/thread.c common/config.c common/cipher.c common/client.c common/logger.c common/enet_engine.c
+
+:link
+	exit
+	gcc -l all objects and libraries to produce exe.
+	:: internal dependencies
+
+	gcc - rest of libraries.
+	:: external dependencies
+
+:: =================
+
+call :%1%
