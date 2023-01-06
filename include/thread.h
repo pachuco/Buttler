@@ -5,6 +5,15 @@
 #ifndef THREAD_H
 #define THREAD_H
 
+        #if defined(WIN32) && !defined(UNIX)
+#include <windows.h>
+// Include only the header for threads and define lean and mean win32
+        #elif defined(UNIX) && !defined(WIN32)
+#define <pthread.h>
+        #else
+//Unknown platform.
+        #endif
+
 // Crossplatform.
 
 int run_thread();
