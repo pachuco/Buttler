@@ -9,7 +9,7 @@
 #include <windows.h>
 // Include only the header for threads and define lean and mean win32
         #elif defined(UNIX) && !defined(WIN32)
-#define <pthread.h>
+#include <pthread.h>
         #else
 //Unknown platform.
         #endif
