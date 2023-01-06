@@ -21,7 +21,7 @@ when_testing("function encrypt() with a plaintext message and a key...") {
       char* key = "arbitrary_KEY";
 
       encrypt(cipher, message, key, 3);
-      
+
       char* expected_result = "he3heuehefJdhdbhruebd3883Hdhdbs9";
       assert_equals(message, expected_result);
    }
