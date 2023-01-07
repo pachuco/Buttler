@@ -14,9 +14,12 @@ extern const unsigned int LOGGER_FILE;
 extern const unsigned int LOGGER_STDOUT;
 extern const unsigned int LOGGER_STDERR;
 
+extern const unsigned int LOGGER_OVERWRITE;
+
 typedef struct LOGGER {
 	int __ENABLED_LOGGING;
 	int __TYPE_OF_LOGGER;
+	int __MODE_OF_LOGGING;
 
 	FILE * __log_file;
 	char * __log_file_path;
@@ -24,10 +27,10 @@ typedef struct LOGGER {
 
 // Signatures:
 
-int init_logger(LOGGER * logger);
-void cleanup_logger(LOGGER * logger);
+int init_logger(LOGGER * logger, int TYPE, int MODE);
+int cleanup_logger(LOGGER * logger);
 
-LOGGER * factory_create_logger(int TYPE);
+LOGGER * factory_create_logger();
 
 int log_info(LOGGER * logger, char * message);
 int log_error(LOGGER * logger, char * message);

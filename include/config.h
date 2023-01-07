@@ -5,15 +5,28 @@
 #ifndef CONFIG_H
 #define CONFIG_H
 
+#include <stdio.h>
+#include <stdlib.h>
+
+extern const unsigned int CONFIG_OVERWRITE;
+
+typedef struct CONFIG {
+    int CONFIG_MODE;
+    char * file_path;
+
+    FILE* file_desc;
+} CONFIG;
+
+int init_config(CONFIG * config, char * file_path, int MODE);
+int close_config(CONFIG * config);
+
 CONFIG * factory_create_config();
 
-int open_config();
-int set_config(char * key, char * value, int append);
+int set_config(CONFIG * config, char * key, char * value, int append);
 
-char * get_config_key(char * from_value);
-char * get_config_value(char * from_key);
+char * get_config_key(CONFIG * config, char * from_value);
+char * get_config_value(CONFIG * config, char * from_key);
 
-int close_config(); //deallocate structs
 int spawn_default_config();
 
 #endif
