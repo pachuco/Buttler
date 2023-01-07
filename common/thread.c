@@ -67,44 +67,44 @@ int pause_thread() {
 
 // Win32 Impl. ========================================
 
-int run_thread_win32() {
+int run_thread_win32(THREAD_WIN32 * thread, POINTER_TO_FUNCTION) {
 	CreateThread(...);
 }
 
-int close_thread_win32() {
+int close_thread_win32(THREAD_WIN32 * thread) {
 	CloseHandle?(...)
 }
 
-int wait_thread_win32() {
+int wait_thread_win32(THREAD_WIN32 * thread) {
 	WaitForSingleObject(...);
 }
 
-int stop_thread_win32() {
+int stop_thread_win32(THREAD_WIN32 * thread) {
 	TerminateThread(...);
 }
 
-int pause_thread_win32() {
+int pause_thread_win32(THREAD_WIN32 * thread) {
 	SuspendThread(...);
 }
 
 // Unix Impl. ========================================
 
-int run_thread_unix() {
+int run_thread_unix(THREAD_UNIX * thread, POINTER_TO_FUNCTION) {
 	pthread_create(...);
 }
 
-int close_thread_unix() {
+int close_thread_unix(THREAD_UNIX * thread) {
 	close?(...);
 }
 
-int wait_thread_unix() {
+int wait_thread_unix(THREAD_UNIX * thread) {
 	pthread_join(...);
 }
 
-int stop_thread_unix() {
+int stop_thread_unix(THREAD_UNIX * thread) {
 	pthread_exit(...);
 }
 
-int pause_thread_unix() {
+int pause_thread_unix(THREAD_UNIX * thread) {
 	pthread_suspend(...);
 }
