@@ -5,21 +5,27 @@
 #ifndef LOGGER_H
 #define LOGGER_H
 
+#include <stdio.h>
+#include <stdlib.h>
+
 // Structures:
 
-enum LOG = { FILE = 1, STDOUT = 2, STDERR = 3 };
+extern const unsigned int LOGGER_FILE;
+extern const unsigned int LOGGER_STDOUT;
+extern const unsigned int LOGGER_STDERR;
 
 typedef struct LOGGER {
-	int ENABLED_LOGGING = -1; //these assignments cannot be done in C. move them to init_logger().
-	int TYPE_OF_LOGGER = -1;
+	int __ENABLED_LOGGING;
+	int __TYPE_OF_LOGGER;
 
-	FILE * log_file = NULL;
-	char * log_file_path = NULL;
+	FILE * __log_file;
+	char * __log_file_path;
 } LOGGER;
 
 // Signatures:
 
 int init_logger(LOGGER * logger);
+void cleanup_logger(LOGGER * logger);
 
 LOGGER * factory_create_logger(int TYPE);
 
@@ -30,12 +36,9 @@ int log_warning(LOGGER * logger, char * message);
 char * get_current_time_str();
 
 void set_logger(LOGGER * newLogger);
-void set_log_path(LOGGER logger, char * path);
-LOGGER * get_logger();
+void set_log_path(LOGGER * logger, char * path);
 
 void enable_logger(LOGGER * logger);
 void disable_logger(LOGGER * logger);
-
-void terminate_logger(LOGGER * logger);
 
 #endif

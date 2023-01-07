@@ -1,5 +1,3 @@
-:: TODO.
-
 @echo off
 
 set CC=gcc.exe
