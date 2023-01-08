@@ -4,7 +4,21 @@
 
 #include "enet_engine.h"
 
-int enet_init() {
+const unsigned int CONN_STATE_CONNECTED = 1;
+const unsigned int CONN_STATE_DISCONNECTED = 2;
+const unsigned int CONN_STATE_UNRESPONSIVE = 3;
+const unsigned int CONN_STATE_POLLED = 4;
+
+ENET_ENGINE* create_enet_engine() {
+    //return malloc
+
+    return NULL;
+}
+
+int enet_init(ENET_ENGINE* engine, char * ip_address, short port) {
+
+    //engine->addr = ...;
+    //initialize other structs...
 
     if (enet_initialize () != 0)
     {
@@ -17,70 +31,63 @@ int enet_init() {
     return 0;
 }
 
-int enet_cleanup() {
-	enet_host_destroy(...);
+int enet_cleanup(ENET_ENGINE* engine) {
+	//enet_host_destroy(...);
 
-        atexit(enet_deinitialize);
+    atexit(enet_deinitialize);
+
+    return 0;
 }
 
-int enet_start_engine() {
-	server = enet_host_create (& address /* the address to bind the server host to */, 
-                             32      /* allow up to 32 clients and/or outgoing connections */,
-                              2      /* allow up to 2 channels to be used, 0 and 1 */,
-                              0      /* assume any amount of incoming bandwidth */,
-                              0      /* assume any amount of outgoing bandwidth */);
+int enet_start_engine(ENET_ENGINE* engine) {
+	engine->host_server = enet_host_create(&engine->addr, 32, 2, 0, 0);
+
+	return 0;
 }
 
-int enet_manage_hosts() {
-	while (enet_host_service (client, & event, 1000) > 0)
+int enet_manage_hosts(ENET_ENGINE* engine) {
+	while (enet_host_service (engine->host_client, &engine->host_event, 1000) > 0)
 	{
-    		switch (event.type)
-    		{
-    			case ENET_EVENT_TYPE_CONNECT:
-				forward_to_bound_callbacks(event);
-			break;
+        switch (engine->host_event->type) //.type?...
+        {
+            case ENET_EVENT_TYPE_CONNECT:
+                enet_on_connect(engine->host_event);
+            break;
 
-			case ENET_EVENT_TYPE_RECEIVE:
-				forward_to_bound_callbacks(event);
-			break;
+            case ENET_EVENT_TYPE_RECEIVE:
+                enet_on_receive(engine->host_event);
+            break;
 
-			case ENET_EVENT_TYPE_SENT:
-				forward_to_bound_callbacks(event);
-			break;
-
-			case ENET_EVENT_TYPE_DISCONNECT:
-				forward_to_bound_callbacks(event);
-			break;
-		}
+            case ENET_EVENT_TYPE_DISCONNECT:
+                enet_on_disconnect(engine->host_event);
+            break;
+        }
 	}
+
+	return 0;
+}
+
+int enet_destruct() {
+
+    //free other structs.
+
+    return 0;
 }
 
 // Propagators //////////////////////////
 
-int enet_close() {
-
+int enet_on_connect() {
+    return 0;
 }
 
-int enet_listen() {
-
+int enet_on_receive() {
+    return 0;
 }
 
-int enet_accept() {
-
+int enet_on_disconnect() {
+    return 0;
 }
 
-int enet_connect() {
+//int enet_create_packet() {
 
-}
-
-int enet_sendbytes() {
-
-}
-
-int enet_recvbytes() {
-
-}
-
-int enet_block() {
-
-}
+//}
