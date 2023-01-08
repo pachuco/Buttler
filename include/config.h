@@ -22,10 +22,10 @@ int close_config(CONFIG * config);
 
 CONFIG * factory_create_config();
 
-int set_config(CONFIG * config, char * key, char * value, int append);
+int write_config(CONFIG * config, char * key, char * value, int append);
 
-char * get_config_key(CONFIG * config, char * from_value);
-char * get_config_value(CONFIG * config, char * from_key);
+char * read_config_key(CONFIG * config, char * from_value, char * value_out);
+char * read_config_value(CONFIG * config, char * from_key, char * key_out);
 
 int spawn_default_config();
 

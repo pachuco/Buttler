@@ -23,17 +23,17 @@ CONFIG * factory_create_config() {
     return (struct CONFIG*)malloc(sizeof(CONFIG));
 }
 
-int set_config(CONFIG * config, char * key, char * value, int append) {
+int write_config(CONFIG * config, char * key, char * value, int append) {
 
     return 0;
 }
 
-char * get_config_key(CONFIG * config, char * from_value) {
+char * read_config_key(CONFIG * config, char * from_value, char * value_out) {
 
     return NULL;
 }
 
-char * get_config_value(CONFIG * config, char * from_key) {
+char * read_config_value(CONFIG * config, char * from_key, char * key_out) {
 
     return NULL;
 }
