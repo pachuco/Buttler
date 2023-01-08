@@ -19,12 +19,19 @@ int init_cipher(CIPHER* cipher) {
 
 int destruct(CIPHER* cipher) {
 
+
+    free(cipher->key);
     free(cipher);
+
 
     return 0;
 }
 
-int set_key(CIPHER* cipher, KEY * key, int size) {
+KEY* create_key(char* key, int key_size) {
+    return (struct KEY*)malloc(sizeof(KEY));
+}
+
+int set_key(CIPHER* cipher, KEY * key) {
     return 0;
 }
 
@@ -32,14 +39,14 @@ int set_algorithm(CIPHER* cipher, int ALGORITHM_TYPE) {
     return 0;
 }
 
-int encrypt(CIPHER * cipher, char * message, short rounds) {
+int encrypt(CIPHER * cipher, char * plaintext_in, char* ciphertext_out, short rounds) {
 	//if cipher->CHOSEN_ALGORITHM == CIPHER_TYPE.TWOFISH...
 	//...
 
 	return 0;
 }
 
-int decrypt(CIPHER * cipher, char * message, short rounds) {
+int decrypt(CIPHER * cipher, char * ciphertext_in, char* plaintext_out, short rounds) {
 	//same here as above for encrypt.
 
 	return 0;

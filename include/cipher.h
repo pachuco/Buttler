@@ -30,11 +30,12 @@ CIPHER * factory_create_cipher();
 int init_cipher(CIPHER* cipher); //TODO
 int destruct(CIPHER* cipher); //dealloc pointers
 
-int set_key(CIPHER* cipher, KEY * key, int size);
+KEY* create_key(char* key, int key_size);
+int set_key(CIPHER* cipher, KEY * key);
 int set_algorithm(CIPHER* cipher, int ALGORITHM_TYPE);
 
-int encrypt(CIPHER * cipher, char * message, short rounds);
-int decrypt(CIPHER * cipher, char * message, short rounds);
+int encrypt(CIPHER * cipher, char * plaintext_in, char* ciphertext_out, short rounds);
+int decrypt(CIPHER * cipher, char * plaintext_in, char* ciphertext_out, short rounds);
 
 int cipher_impl(); //TODO
 
