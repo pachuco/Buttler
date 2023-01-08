@@ -5,27 +5,33 @@
 #ifndef CIPHER_H
 #define CIPHER_H
 
-#include <mbedtls.h>
+#include <stdio.h>
+#include <stdlib.h>
 
-enum CIPHER_TYPE = { RSA = 0, AES = 1, TWOFISH = 2, SERPENT = 3 };
+//#include <mbedtls.h>
+
+extern const unsigned int CIPHER_RSA;
+extern const unsigned int CIPHER_AES;
+extern const unsigned int CIPHER_TWOFISH;
+extern const unsigned int CIPHER_SERPENT;
 
 typedef struct KEY {
-	char * key,
-	int length
+	char * key;
+	int length;
 } KEY;
 
 typedef struct CIPHER {
-	KEY * key,
-	int CHOSEN_ALGORITHM
+	KEY * key;
+	int CHOSEN_ALGORITHM;
 } CIPHER;
 
 CIPHER * factory_create_cipher();
 
-int init_alloc(); //TODO
-int destruct(); //dealloc pointers
+int init_cipher(CIPHER* cipher); //TODO
+int destruct(CIPHER* cipher); //dealloc pointers
 
-int set_key(KEY * key, int size);
-int set_algorithm(int ALGORITHM_TYPE);
+int set_key(CIPHER* cipher, KEY * key, int size);
+int set_algorithm(CIPHER* cipher, int ALGORITHM_TYPE);
 
 int encrypt(CIPHER * cipher, char * message, short rounds);
 int decrypt(CIPHER * cipher, char * message, short rounds);
