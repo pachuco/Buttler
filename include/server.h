@@ -17,42 +17,31 @@
 #include "util.h"
 
 typedef struct SERVER {
-	ENET_ENGINE* engine,
-	..
+	ENET_ENGINE* engine;
+	int connected_clients;
+	char *ip_address;
+	short port;
 } SERVER;
 
 // Primary interface.
 
-int init();
+int init_server(SERVER* server, char * ipaddr, short port);
 void start_server();
 void stop_server();
 int destructor();
 
-int handle_io_requests();
-int bind_callback(function pointers);
+/////////////////////////////////
 
-// Dispatchers
+//fold these into a single function later when you have time.
 
-int on_io_request_received(IO_CONTEXT* context);
-int on_io_request_sent(IO_CONTEXT* context);
-int on_io_request_connected(IO_CONTEXT* context);
-int on_io_request_disconnected(IO_CONTEXT* context);
+int bind_on_client_join_lobby(int (*callback)(void*), int protocol_event);
+int bind_on_client_details(int (*callback)(void*), int protocol_event);
 
-// Protocol handlers
+int bind_on_client_opt_in(int (*callback)(void*), int protocol_event);
+int bind_on_client_opt_out(int (*callback)(void*), int protocol_event);
 
-int on_handshake_exchange();
-int on_terminate();
-int on_heartbeat();
+int bind_on_client_fm_command(int (*callback)(void*), int protocol_event);
 
-int serialize_packet();
-int deserialize_packet();
-
-void close();
-
-int handle_user_opt_in();
-int handle_user_opt_out();
-
-int broadcast();
-int broadcast_packet();
+int bind_on_client_ready_stream(int (*callback)(void*), int protocol_event);
 
 #endif

@@ -4,10 +4,14 @@
 
 #include "server.h"
 
-int init(SERVER * this_server) {
+int init_server(SERVER * this_server, char * ipaddr, short port) {
 
-	this_server->engine = (struct ENET_SERVER*)malloc(sizeof(ENET_SERVER*));
+	this_server->engine = create_enet_engine();
 	enet_init(this_server->engine);
+
+	this_server->connected_clients = 0;
+	this_server->ip_address = ipaddr;
+	this_server->port = port;
 
 	//error check
 
@@ -28,6 +32,14 @@ void start_server(SERVER * this_server) {
 
 	if (!this_server->is_listening) {
 		this_server->listening_thread = new thread.@handle_io_requests;
+
+		//anonymous lambda thread here.
+
+        enet_start_engine(my_engine);
+
+        enet_manage_hosts(my_engine, &callback_on_connected_client,
+            &callback_on_receive_data, &callback_on_disconnected_client);
+
 	} else {
 		//server already started. do nothing.
 		//warn/print out feedback to user
@@ -206,5 +218,31 @@ int broadcast() {
 }
 
 int broadcast_packet() {
+
+}
+
+///////////////////////
+
+int bind_on_client_join_lobby(int (*callback)(void*), int protocol_event) {
+
+}
+
+int bind_on_client_details(int (*callback)(void*), int protocol_event) {
+
+}
+
+int bind_on_client_opt_in(int (*callback)(void*), int protocol_event) {
+
+}
+
+int bind_on_client_opt_out(int (*callback)(void*), int protocol_event) {
+
+}
+
+int bind_on_client_fm_command(int (*callback)(void*), int protocol_event) {
+
+}
+
+int bind_on_client_ready_stream(int (*callback)(void*), int protocol_event) {
 
 }
