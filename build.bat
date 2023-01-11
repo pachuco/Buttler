@@ -107,8 +107,8 @@ goto main
 	%CC% -Wall -g -mwin32 -I include/ -c common/cipher.c -o bin/cipher.o
 
 
-	echo "...Thread.		skip."
-	:: %CC% -Wall -g -mwin32 -I include/ -c common/thread.c -o bin/thread.o
+	echo "...Thread. 		[incompatible pointer warnings, ignore for now]"
+	%CC% -g -Wall -Wno-incompatible-pointer-types -mwin32 -I include/ -c common/thread.c -o bin/thread.o
 
 
 	echo "...Enet_engine. 	skip."
