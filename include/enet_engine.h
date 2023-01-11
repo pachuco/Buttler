@@ -10,7 +10,7 @@
 
 #include <enet/enet.h>
 
-//#include "logger.h"
+#include "inc/logger.h"
 
 #define BUFFER_SIZE 4096
 
@@ -43,7 +43,8 @@ int enet_init(ENET_ENGINE* engine, char * ip_address, short port);
 int enet_cleanup(ENET_ENGINE* engine);
 
 int enet_start_engine(ENET_ENGINE* engine);
-int enet_manage_hosts(ENET_ENGINE* engine);
+int enet_manage_hosts(ENET_ENGINE* engine, int (*on_connected_callback)(void*),
+                      int (*on_received_cacllback)(void*), int (*on_disconnected_callback)(void*));
 
 int enet_destruct();
 

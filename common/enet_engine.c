@@ -10,9 +10,7 @@ const unsigned int CONN_STATE_UNRESPONSIVE = 3;
 const unsigned int CONN_STATE_POLLED = 4;
 
 ENET_ENGINE* create_enet_engine() {
-    //return malloc
-
-    return NULL;
+    return (ENET_ENGINE*)malloc(sizeof(ENET_ENGINE));
 }
 
 int enet_init(ENET_ENGINE* engine, char * ip_address, short port) {
@@ -32,7 +30,7 @@ int enet_init(ENET_ENGINE* engine, char * ip_address, short port) {
 }
 
 int enet_cleanup(ENET_ENGINE* engine) {
-	//enet_host_destroy(...);
+	enet_host_destroy(engine->host_server);
 
     atexit(enet_deinitialize);
 
@@ -45,7 +43,9 @@ int enet_start_engine(ENET_ENGINE* engine) {
 	return 0;
 }
 
-int enet_manage_hosts(ENET_ENGINE* engine) {
+int enet_manage_hosts(ENET_ENGINE* engine, int (*on_connected_callback)(void*),
+                      int (*on_received_cacllback)(void*), int (*on_disconnected_callback)(void*)) {
+
 	while (enet_host_service (engine->host_client, &engine->host_event, 1000) > 0)
 	{
         switch (engine->host_event->type) //.type?...

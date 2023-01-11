@@ -99,7 +99,7 @@ goto main
 	%CC% -Wall -g -mwin32 -I include/ -c common/logger.c -o bin/logger.o
 
 
-	echo "...Config.""
+	echo "...Config."
 	%CC% -Wall -g -mwin32 -I include/ -c common/config.c -o bin/config.o
 
 
