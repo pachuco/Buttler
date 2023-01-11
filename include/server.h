@@ -5,16 +5,18 @@
 #ifndef SERVER_H
 #define SERVER_H
 
-#include "protocol.h"
+#include "inc/protocol.h"
 
-#include "thread.h"
-#include "enet_engine.h"
-#include "client.h"
-#include "logger.h"
-#include "config.h"
+#include "inc/thread.h"
+#include "inc/enet_engine.h"
+#include "inc/client.h"
+#include "inc/logger.h"
+#include "inc/config.h"
 
-#include "cipher.h"
-#include "util.h"
+#include "inc/cipher.h"
+#include "inc/util.h"
+
+typedef int (*callback)(void*);
 
 typedef struct SERVER {
 	ENET_ENGINE* engine;
@@ -24,7 +26,7 @@ typedef struct SERVER {
 	int is_listening;
 	THREAD* host_thread;
 	unsigned int events[64];
-	int (*callback)(void*)[64];
+    callback function_pointer_table [64];
 
 } SERVER;
 
