@@ -44,10 +44,10 @@ goto main
 	echo:
 
 	echo "...Client.	skip.
-	:: %CC% -Wall -I include/ src/fm_client/client.c src/fm_client/client.c
+	:: %CC% -Wall -g -mwin32 -I include/ -c src/fm_client/client.c -o bin/client/client.o
 
 	echo "...Main.	skip.
-	:: %CC% -Wall -I include/ src/fm_client/main.c src/fm_client/main.c
+	:: %CC% -Wall -g -mwin32 -I include/ -c src/fm_client/main.c -o bin/client/main.o
 
 	echo "Finished."
 	echo:
@@ -68,15 +68,15 @@ goto main
 	echo:
 
 	echo "...Server.	skip.
-	:: %CC% -Wall -g -mwin32 -I include/ -c common/server.c -o bin/server.o
+	:: %CC% -Wall -g -mwin32 -I include/ -c src/fm_server/server.c -o bin/server/server.o
 
 
 	echo "...Portio.	skip.
-	:: %CC% -Wall -g -mwin32 -I include/ -c common/portio.c -o bin/portio.o
+	:: %CC% -Wall -g -mwin32 -I include/ -c src/fm_server/portio.c -o bin/server/portio.o
 
 
 	echo "...Main.	skip.
-	:: %CC% -Wall -g -mwin32 -I include/ -c common/main.c -o bin/main.o
+	:: %CC% -Wall -g -mwin32 -I include/ -c src/fm_server/main.c -o bin/server/main.o
 
 	echo "Finished."
 	echo:
