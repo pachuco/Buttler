@@ -23,6 +23,8 @@ int init_server(SERVER * this_server, char * ipaddr, short port) {
 int destructor(SERVER * this_server) {
 
 	enet_cleanup(this_server);
+
+	return 0;
 }
 
 SERVER * factory_create_server() {
@@ -33,7 +35,7 @@ void start_server(SERVER * this_server) {
     this_server->is_listening = 0;
 
 	if (!this_server->is_listening) {
-		this_server->listening_thread = new thread.@handle_io_requests (this_server);
+		//this_server->listening_thread = new thread.@handle_io_requests (this_server);
 	} else {
 		//server already started. do nothing.
 		//warn/print out feedback to user
@@ -48,9 +50,9 @@ void stop_server(SERVER * this_server) {
 
 int handle_io_requests(SERVER* server) { //is on a separate thread.
 
-    enet_start_engine(my_engine);
+    enet_start_engine(server->engine);
 
-    enet_manage_hosts(my_engine, &io_callback_on_connected_client,
+    enet_manage_hosts(server->engine, &io_callback_on_connected_client,
         &io_callback_on_receive_data, &io_callback_on_disconnected_client);
 }
 
@@ -72,10 +74,11 @@ int io_callback_on_connected_client() {
 	//async_recv_post_io
 
 	//update log
+	return 0;
 }
 
 int io_callback_on_receive_data() {
-    check incoming buffer size.
+    /*check incoming buffer size.
 	read buffer.
 
 
@@ -105,10 +108,12 @@ int io_callback_on_receive_data() {
     }
 
 	//update log.
+	*/
+	return 0;
 }
 
 int io_callback_on_disconnected_client() {
-
+    return 0;
 }
 
 //decouple the enet engine from the audio parsing/streaming. it needs it's own module. pass messages around instead.
@@ -117,4 +122,5 @@ int io_callback_on_disconnected_client() {
 
 int bind_protocol_event(int (*callback)(void*), int protocol_event) {
     //push event to array.
+    return 0;
 }
