@@ -14,6 +14,9 @@
 
 #define BUFFER_SIZE 4096
 
+extern const unsigned int ENGINE_TYPE_SERVER;
+extern const unsigned int ENGINE_TYPE_CLIENT;
+
 extern const unsigned int CONN_STATE_CONNECTED;
 extern const unsigned int CONN_STATE_DISCONNECTED;
 extern const unsigned int CONN_STATE_UNRESPONSIVE;
@@ -28,9 +31,6 @@ typedef struct ENET_ENGINE {
 
 	long bytes_written;
 	long bytes_read;
-
-	char send_buffer[BUFFER_SIZE];
-	char recv_buffer[BUFFER_SIZE];
 
 	int connection_state;
 	long last_response;

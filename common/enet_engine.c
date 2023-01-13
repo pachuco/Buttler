@@ -4,6 +4,9 @@
 
 #include "enet_engine.h"
 
+extern const unsigned int ENGINE_TYPE_SERVER = 10;
+extern const unsigned int ENGINE_TYPE_CLIENT = 11;
+
 const unsigned int CONN_STATE_CONNECTED = 1;
 const unsigned int CONN_STATE_DISCONNECTED = 2;
 const unsigned int CONN_STATE_UNRESPONSIVE = 3;
