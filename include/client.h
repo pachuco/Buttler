@@ -1,38 +1,53 @@
 /*
-        Client host wrapper of enet_engine.
+        Client for handling communication.
 */
 
-#ifndef CLIENT_H
-#define CLIENT_H
+#ifndef SERVER_H
+#define SERVER_H
 
-#include "protocol.h"
-#include "logger.h"
-#include "cipher.h"
+#include "inc/protocol.h"
 
-#include "enet_engine.h"
+#include "inc/thread.h"
+#include "inc/enet_engine.h"
+#include "inc/logger.h"
+#include "inc/config.h"
 
-typedef struct ENET_CLIENT {
-        ENetAddress * addr,
-        ENetHost * host_client,
+#include "inc/cipher.h"
+#include "inc/util.h"
 
-        long bytes_written,
-        long bytes_read,
+typedef int (*callback)(void*);
 
-        char send_buffer[BUFFER_SIZE],
-        char recv_buffer[BUFFER_SIZE],
+typedef struct CLIENT {
+	ENET_ENGINE* engine;
+	THREAD* host_thread;
 
-        int connection_state,
-        long last_response
-} ENET_CLIENT;
+	int is_connected;
 
-int send_bytes();
-int recv_bytes();
+	char *ip_address;
+	short port;
 
-int close();
-int connect();
+	unsigned int events[64];
+    callback function_pointer_table [64];
 
-int block();
+} CLIENT;
 
-int pack(); //common..
+// Primary interface.
+
+int init_client(CLIENT* client, char * ipaddr, short port);
+int destructor();
+CLIENT* factory_create_client();
+
+void host_connect_client();
+void host_disconnect_client();
+
+/////////////////////////////////
+
+int io_callback_on_connected_client();
+int io_callback_on_receive_data();
+int io_callback_on_disconnected_client();
+
+/////////////////////////////////
+
+int bind_protocol_event(int (*callback)(void*), int protocol_event);
 
 #endif
