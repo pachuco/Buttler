@@ -18,7 +18,9 @@ ENET_ENGINE* create_enet_engine() {
 
 int enet_init(ENET_ENGINE* engine, char * ip_address, short port) {
 
-    //engine->addr = ...;
+    engine->ip_addr = ip_address;
+    engine->port = port;
+
     //initialize other structs...
 
     if (enet_initialize () != 0)
@@ -33,7 +35,7 @@ int enet_init(ENET_ENGINE* engine, char * ip_address, short port) {
 }
 
 int enet_cleanup(ENET_ENGINE* engine) {
-	enet_host_destroy(engine->host_server);
+	enet_host_destroy(engine->host_socket);
 
     atexit(enet_deinitialize);
 
@@ -41,7 +43,24 @@ int enet_cleanup(ENET_ENGINE* engine) {
 }
 
 int enet_start_engine(ENET_ENGINE* engine, int ENGINE_TYPE) {
-	engine->host_server = enet_host_create(&engine->addr, 32, 2, 0, 0);
+    engine->ENGINE_TYPE = ENGINE_TYPE;
+
+    if (engine->ENGINE_TYPE == ENGINE_TYPE_SERVER) {
+
+        if (strcmp(engine->ip_addr, "0.0.0.0")) {
+            engine->host_addr.host = ENET_HOST_ANY;
+            engine->host_addr.port = engine->port;
+        } else {
+            engine->host_socket = enet_address_set_host(&engine->host_addr, engine->ip_addr);
+        }
+
+        engine->host_socket = enet_host_create(&engine->host_addr, 32, 2, 0, 0);
+
+    } else if (ENGINE_TYPE == ENGINE_TYPE_CLIENT) {
+            engine->host_socket = enet_address_set_host(&engine->host_addr, engine->ip_addr);
+    } else {
+            //... unknown engine type.
+    }
 
 	return 0;
 }
@@ -49,9 +68,9 @@ int enet_start_engine(ENET_ENGINE* engine, int ENGINE_TYPE) {
 int enet_manage_hosts(ENET_ENGINE* engine, int (*on_connected_callback)(void*),
                       int (*on_received_cacllback)(void*), int (*on_disconnected_callback)(void*)) {
 
-	while (enet_host_service (engine->host_client, &engine->host_event, 1000) > 0)
+	while (enet_host_service (engine->host_socket, &engine->host_event, 1000) > 0)
 	{
-        switch (engine->host_event->type) //.type?...
+        switch (engine->host_event.type) //.type?...
         {
             case ENET_EVENT_TYPE_CONNECT:
                 enet_on_connect(engine->host_event);

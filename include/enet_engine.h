@@ -10,7 +10,7 @@
 
 #include <enet/enet.h>
 
-#include "logger.h"
+#include "inc/logger.h"
 
 #define BUFFER_SIZE 4096
 
@@ -23,17 +23,18 @@ extern const unsigned int CONN_STATE_UNRESPONSIVE;
 extern const unsigned int CONN_STATE_POLLED;
 
 typedef struct ENET_ENGINE {
-	ENetAddress * addr;
-	ENetHost * host_server;
-	ENetHost * host_client;
+	ENetAddress host_addr;
+	ENetEvent host_event;
 
-	ENetEvent * host_event;
+	ENetHost * host_socket;
+
+	int ENGINE_TYPE;
 
 	long bytes_written;
 	long bytes_read;
 
-	int connection_state;
-	long last_response;
+	char *ip_addr;
+	short port;
 } ENET_ENGINE;
 
 ENET_ENGINE* create_enet_engine();
