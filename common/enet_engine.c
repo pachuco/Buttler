@@ -40,7 +40,7 @@ int enet_cleanup(ENET_ENGINE* engine) {
     return 0;
 }
 
-int enet_start_engine(ENET_ENGINE* engine) {
+int enet_start_engine(ENET_ENGINE* engine, int ENGINE_TYPE) {
 	engine->host_server = enet_host_create(&engine->addr, 32, 2, 0, 0);
 
 	return 0;

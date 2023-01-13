@@ -42,7 +42,7 @@ ENET_ENGINE* create_enet_engine();
 int enet_init(ENET_ENGINE* engine, char * ip_address, short port);
 int enet_cleanup(ENET_ENGINE* engine);
 
-int enet_start_engine(ENET_ENGINE* engine);
+int enet_start_engine(ENET_ENGINE* engine, int ENGINE_TYPE);
 int enet_manage_hosts(ENET_ENGINE* engine, int (*on_connected_callback)(void*),
                       int (*on_received_cacllback)(void*), int (*on_disconnected_callback)(void*));
 
