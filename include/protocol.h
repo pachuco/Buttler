@@ -31,11 +31,13 @@
 
 // =======================================
 
-enum PACKET_STATE = { DELIVERED = 0, UNDELIVERED = 1, DELIVERING = 2 };
+extern const unsigned int PACKET_STATE_DELIVERED;
+extern const unsigned int PACKET_STATE_DELIVERING;
+extern const unsigned int PACKET_STATE_UNDELIVERED;
 
-typedef struct ENET_PACKET {
-        ENetPacket packet,
+/*typedef struct ENET_PACKET_CHUNK {
+        ENetPacket packet;
 
-        int packet_state,
-        long packet_size
-} ENET_PACKET;
+        int packet_state;
+        long packet_size;
+} ENET_PACKET_CHUNK;*/
