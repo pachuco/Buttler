@@ -43,13 +43,13 @@ goto main
 	echo "Attempting build of client module..."
 	echo:
 
-	echo "...Input.        skip.
+	echo "...Input."
         :: %CC% -Wall -g -mwin32 -I include/ -c src/fm_client/input.c -o bin/client/input.o
 
-	echo "...Client.	skip.
+	echo "...Client."
 	:: %CC% -Wall -g -mwin32 -I include/ -c src/fm_client/client.c -o bin/client/client.o
 
-	echo "...Main.	skip.
+	echo "...Main."
 	:: %CC% -Wall -g -mwin32 -I include/ -c src/fm_client/main.c -o bin/client/main.o
 
 	echo "Finished."
@@ -70,16 +70,16 @@ goto main
 	echo "Attempting build of server module..."
 	echo:
 
-	echo "...Server.	skip.
-	:: %CC% -Wall -g -mwin32 -I include/ -c src/fm_server/server.c -o bin/server/server.o
+	echo "...Server."
+	%CC% -Wall -Llib/enet/x64 -I lib/enet/include -lenet64 -lws2_32 -lwinmm -g -mwin32 -g -mwin32 -I include/ -c src/fm_server/server.c -o bin/server/server.o
 
 
-	echo "...Portio.	skip.
-	:: %CC% -Wall -g -mwin32 -I include/ -c src/fm_server/portio.c -o bin/server/portio.o
+	echo "...Portio."
+	%CC% -Wall -g -mwin32 -I include/ -c src/fm_server/portio.c -o bin/server/portio.o
 
 
-	echo "...Main.	skip.
-	:: %CC% -Wall -g -mwin32 -I include/ -c src/fm_server/main.c -o bin/server/main.o
+	echo "...Main."
+	%CC% -Wall -g -mwin32 -I include/ -c src/fm_server/main.c -o bin/server/main.o
 
 	echo "Finished."
 	echo:

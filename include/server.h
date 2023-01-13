@@ -5,16 +5,15 @@
 #ifndef SERVER_H
 #define SERVER_H
 
-#include "inc/protocol.h"
+#include "protocol.h"
 
-#include "inc/thread.h"
-#include "inc/enet_engine.h"
-#include "inc/client.h"
-#include "inc/logger.h"
-#include "inc/config.h"
+#include "thread.h"
+#include "enet_engine.h"
+#include "logger.h"
+#include "config.h"
 
-#include "inc/cipher.h"
-#include "inc/util.h"
+#include "cipher.h"
+#include "util.h"
 
 typedef int (*callback)(void*);
 

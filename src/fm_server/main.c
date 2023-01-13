@@ -14,8 +14,6 @@ Usage:
 #include "config.h"
 #include "thread.h"
 #include "cipher.h"
-#include "client.h"
-#include "input.h"
 
 #include "globals.h"
 
