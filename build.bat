@@ -114,10 +114,6 @@ goto main
 	echo "...Enet_engine.	[incompatible pointer warnings, ignore for now]"
 	%CC% -Wall -Wno-incompatible-pointer-types -Wno-switch -Llib/enet/x64 -I lib/enet/include -lenet64 -lws2_32 -lwinmm -g -mwin32 -I include/ -c common/enet_engine.c -o bin/enet_engine.o
 
-
-	echo "...Client. 		skip.
-	:: %CC% -Wall -g -mwin32 -I include/ -c common/client.c -o bin/client.o
-
 	echo:
 	echo "Finished."
 
