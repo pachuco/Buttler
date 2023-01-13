@@ -10,7 +10,7 @@
 
 #include <enet/enet.h>
 
-#include "inc/logger.h"
+#include "logger.h"
 
 #define BUFFER_SIZE 4096
 

@@ -4,8 +4,8 @@
 
 #include "enet_engine.h"
 
-extern const unsigned int ENGINE_TYPE_SERVER = 10;
-extern const unsigned int ENGINE_TYPE_CLIENT = 11;
+const unsigned int ENGINE_TYPE_SERVER = 10;
+const unsigned int ENGINE_TYPE_CLIENT = 11;
 
 const unsigned int CONN_STATE_CONNECTED = 1;
 const unsigned int CONN_STATE_DISCONNECTED = 2;
@@ -51,13 +51,13 @@ int enet_start_engine(ENET_ENGINE* engine, int ENGINE_TYPE) {
             engine->host_addr.host = ENET_HOST_ANY;
             engine->host_addr.port = engine->port;
         } else {
-            engine->host_socket = enet_address_set_host(&engine->host_addr, engine->ip_addr);
+            enet_address_set_host(&engine->host_addr, engine->ip_addr);
         }
 
         engine->host_socket = enet_host_create(&engine->host_addr, 32, 2, 0, 0);
 
     } else if (ENGINE_TYPE == ENGINE_TYPE_CLIENT) {
-            engine->host_socket = enet_address_set_host(&engine->host_addr, engine->ip_addr);
+            enet_address_set_host(&engine->host_addr, engine->ip_addr);
     } else {
             //... unknown engine type.
     }

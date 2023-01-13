@@ -43,6 +43,9 @@ goto main
 	echo "Attempting build of client module..."
 	echo:
 
+	echo "...Input.        skip.
+        :: %CC% -Wall -g -mwin32 -I include/ -c src/fm_client/input.c -o bin/client/input.o
+
 	echo "...Client.	skip.
 	:: %CC% -Wall -g -mwin32 -I include/ -c src/fm_client/client.c -o bin/client/client.o
 
