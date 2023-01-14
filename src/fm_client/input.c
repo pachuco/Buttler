@@ -6,7 +6,7 @@
 //on_y
 //on_etc
 
-on_input_key() {
+/*on_input_key() {
 
 }
 
@@ -21,3 +21,4 @@ handle_y_key() {
 handle_q_key() {
 
 }
+*/

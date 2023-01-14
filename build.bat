@@ -5,7 +5,7 @@ set CC=gcc.exe
 set LNK=link.exe
 
 
-
+:: define dependencies here. as well as paths and file/object names...
 
 
 :: ========================================
@@ -27,7 +27,7 @@ goto main
 	call :common
 	call :server
 	call :client
-	call :link
+	call :generate
 
 	EXIT /B 0
 :: =====================
@@ -44,13 +44,13 @@ goto main
 	echo:
 
 	echo "...Input."
-        :: %CC% -Wall -g -mwin32 -I include/ -c src/fm_client/input.c -o bin/client/input.o
+        %CC% -Wall -g -mwin32 -I include/ -c src/fm_client/input.c -o bin/client/input.o
 
 	echo "...Client."
-	:: %CC% -Wall -g -mwin32 -I include/ -c src/fm_client/client.c -o bin/client/client.o
+	%CC% -Wall -Llib/enet/x64 -I lib/enet/include -lenet64 -lws2_32 -lwinmm -g -mwin32 -g -mwin32 -I include/ -c src/fm_client/client.c -o bin/client/client.o
 
 	echo "...Main."
-	:: %CC% -Wall -g -mwin32 -I include/ -c src/fm_client/main.c -o bin/client/main.o
+	%CC% -Wall -Llib/enet/x64 -I lib/enet/include -lenet64 -lws2_32 -lwinmm -g -mwin32 -g -mwin32 -I include/ -c src/fm_client/main.c -o bin/client/main.o
 
 	echo "Finished."
 	echo:
@@ -129,16 +129,18 @@ goto main
 
 
 :: =====================
-:link
+:generate
 	echo:
-	echo "Unimplemented."
+	echo "Merging object files into executables...."
 	echo:
 
-	:: gcc -l all objects and libraries to produce exe.
-	:: internal dependencies
+	%CC% -Llib/enet/x64 -I lib/enet/include -I include/ -o bin/client/client.exe bin/cipher.o bin/config.o bin/enet_engine.o bin/logger.o bin/thread.o bin/client/client.o bin/client/input.o bin/client/main.o -lenet64 -lws2_32 -lwinmm -g -mwin32
 
-	:: gcc - rest of libraries.
-	:: external dependencies
+
+	%CC% -Llib/enet/x64 -I lib/enet/include -I include/ -o bin/server/server.exe bin/cipher.o bin/config.o bin/enet_engine.o bin/logger.o bin/thread.o bin/server/server.o bin/server/portio.o bin/server/main.o -lenet64 -lws2_32 -lwinmm -g -mwin32
+
+	echo "Finished."
+	echo:
 
 	echo:
 	EXIT /B 0

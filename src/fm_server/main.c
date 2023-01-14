@@ -97,7 +97,7 @@ int main(int argc, char** argv[])
         log_info(global_logger, "Waiting for connections on IP: x and Port: y");
 
 	//input on main thread.
-        handle_input();
+        //handle_input();
     }
 
     return 0;
