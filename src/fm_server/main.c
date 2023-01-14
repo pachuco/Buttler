@@ -14,10 +14,11 @@ Usage:
 #include "config.h"
 #include "thread.h"
 #include "cipher.h"
+#include "server.h"
 
 #include "globals.h"
 
-const int MINIMUM_ARGS = 2
+const int MINIMUM_ARGS = 2;
 
 int handle_arguments(int argc, char** argv[]) {
 
@@ -30,9 +31,11 @@ int handle_arguments(int argc, char** argv[]) {
 int init(int argc, char** argv[]) {
 
     { // Logger
-        global_logger = factory_create_logger(LOG.FILE);
-        set_log_path(global_logger, ".");
-	enable_logger(global_logger);
+
+	global_logger = factory_create_logger();
+    	init_logger(global_logger, LOGGER_STDOUT, LOGGER_OVERWRITE);
+
+    	enable_logger(global_logger);
 
         log_info(global_logger, "Logger ready...");
     }
@@ -41,14 +44,18 @@ int init(int argc, char** argv[]) {
         log_info(global_logger, "Reading .ini configuration file...");
 
 	global_config = factory_create_config();
-        open_config(config_file);
+	init_config(global_config, "cfg.ini", CONFIG_OVERWRITE);
+
+	close_config(global_config);
     }
 
     { // Initialization
         log_info(global_logger, "Initializing structures...");
 
-	global_cipher = factory_create_cipher(CIPHER_TYPE.TWOFISH);
-	server_thread = factory_create_cthreads(&routine);
+	global_cipher = factory_create_cipher();
+    	init_cipher(global_cipher);
+
+    	set_algorithm(global_cipher, CIPHER_TWOFISH);
     }
 
     return 0;
@@ -71,7 +78,11 @@ int main(int argc, char** argv[])
         log_info(global_logger, "Setting up server and lobby...");
 
 	global_server_lobby = factory_create_server();
-        start_server(server_lobby, port); //on a new thread.
+	init_server(global_server_lobby, "0.0.0.0", 2345);
+
+	//set_callback_events()
+
+        start_server(global_server_lobby); //on a new thread.
     }
 
     { // Business Logic

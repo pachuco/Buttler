@@ -48,9 +48,9 @@ void stop_server(SERVER * this_server) {
 
 ////////////////////////////////////////////////////
 
-int handle_io_requests(SERVER* server) { //is on a separate thread.
+int handle_io_requests(SERVER* server, int HOST_TYPE) { //is on a separate thread.
 
-    enet_start_engine(server->engine);
+    enet_start_engine(server->engine, HOST_TYPE);
 
     enet_manage_hosts(server->engine, &io_callback_on_connected_client,
         &io_callback_on_receive_data, &io_callback_on_disconnected_client);

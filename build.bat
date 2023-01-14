@@ -79,7 +79,7 @@ goto main
 
 
 	echo "...Main."
-	%CC% -Wall -g -mwin32 -I include/ -c src/fm_server/main.c -o bin/server/main.o
+	%CC% -Wall -I lib/enet/include -lenet64 -lws2_32 -lwinmm -g -mwin32 -g -mwin32 -I include/ -c src/fm_server/main.c -o bin/server/main.o
 
 	echo "Finished."
 	echo:
