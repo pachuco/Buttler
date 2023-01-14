@@ -35,7 +35,7 @@ int enet_init(ENET_ENGINE* engine, char * ip_address, short port) {
 }
 
 int enet_cleanup(ENET_ENGINE* engine) {
-	enet_host_destroy(engine->host_socket);
+    enet_host_destroy(engine->host_socket);
 
     atexit(enet_deinitialize);
 
@@ -72,6 +72,10 @@ int enet_manage_hosts(ENET_ENGINE* engine, int (*on_connected_callback)(void*),
 	{
         switch (engine->host_event.type) //.type?...
         {
+	    case ENET_EVENT_TYPE_NONE:
+		//do nothing.
+	    break;
+
             case ENET_EVENT_TYPE_CONNECT:
                 enet_on_connect(engine->host_event);
             break;

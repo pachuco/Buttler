@@ -32,11 +32,11 @@ typedef struct SERVER {
 // Primary interface.
 
 int init_server(SERVER* server, char * ipaddr, short port);
-int destructor();
+int destructor(SERVER * this_server);
 SERVER* factory_create_server();
 
-void start_server();
-void stop_server();
+void start_server(SERVER * this_server);
+void stop_server(SERVER * this_server);
 
 /////////////////////////////////
 

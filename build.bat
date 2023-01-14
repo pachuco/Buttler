@@ -44,13 +44,13 @@ goto main
 	echo:
 
 	echo "...Input."
-        %CC% -Wall -g -mwin32 -I include/ -c src/fm_client/input.c -o bin/client/input.o
+        %CC% -Wall -Wno-cpp -g -mwin32 -I include/ -c src/fm_client/input.c -o bin/client/input.o
 
 	echo "...Client."
-	%CC% -Wall -Llib/enet/x64 -I lib/enet/include -lenet64 -lws2_32 -lwinmm -g -mwin32 -g -mwin32 -I include/ -c src/fm_client/client.c -o bin/client/client.o
+	%CC% -Wall -Wno-cpp -Llib/enet/x64 -I lib/enet/include -lenet64 -lws2_32 -lwinmm -g -mwin32 -g -mwin32 -I include/ -c src/fm_client/client.c -o bin/client/client.o
 
 	echo "...Main."
-	%CC% -Wall -Llib/enet/x64 -I lib/enet/include -lenet64 -lws2_32 -lwinmm -g -mwin32 -g -mwin32 -I include/ -c src/fm_client/main.c -o bin/client/main.o
+	%CC% -Wall -Wno-cpp -Llib/enet/x64 -I lib/enet/include -lenet64 -lws2_32 -lwinmm -g -mwin32 -g -mwin32 -I include/ -c src/fm_client/main.c -o bin/client/main.o
 
 	echo "Finished."
 	echo:
@@ -71,15 +71,15 @@ goto main
 	echo:
 
 	echo "...Server."
-	%CC% -Wall -Llib/enet/x64 -I lib/enet/include -lenet64 -lws2_32 -lwinmm -g -mwin32 -g -mwin32 -I include/ -c src/fm_server/server.c -o bin/server/server.o
+	%CC% -Wall -Wno-cpp -Llib/enet/x64 -I lib/enet/include -lenet64 -lws2_32 -lwinmm -g -mwin32 -g -mwin32 -I include/ -c src/fm_server/server.c -o bin/server/server.o
 
 
 	echo "...Portio."
-	%CC% -Wall -g -mwin32 -I include/ -c src/fm_server/portio.c -o bin/server/portio.o
+	%CC% -Wall -Wno-cpp -g -mwin32 -I include/ -c src/fm_server/portio.c -o bin/server/portio.o
 
 
 	echo "...Main."
-	%CC% -Wall -I lib/enet/include -lenet64 -lws2_32 -lwinmm -g -mwin32 -g -mwin32 -I include/ -c src/fm_server/main.c -o bin/server/main.o
+	%CC% -Wall -Wno-cpp -I lib/enet/include -lenet64 -lws2_32 -lwinmm -g -mwin32 -g -mwin32 -I include/ -c src/fm_server/main.c -o bin/server/main.o
 
 	echo "Finished."
 	echo:
@@ -99,23 +99,23 @@ goto main
 	echo:
 
 	echo "...Logger."
-	%CC% -Wall -g -mwin32 -I include/ -c common/logger.c -o bin/logger.o
+	%CC% -Wall -Wno-cpp -g -mwin32 -I include/ -c common/logger.c -o bin/logger.o
 
 
 	echo "...Config."
-	%CC% -Wall -g -mwin32 -I include/ -c common/config.c -o bin/config.o
+	%CC% -Wall -Wno-cpp -g -mwin32 -I include/ -c common/config.c -o bin/config.o
 
 
 	echo "...Cipher."
-	%CC% -Wall -g -mwin32 -I include/ -c common/cipher.c -o bin/cipher.o
+	%CC% -Wall -Wno-cpp -g -mwin32 -I include/ -c common/cipher.c -o bin/cipher.o
 
 
-	echo "...Thread. 		[incompatible pointer warnings, ignore for now]"
-	%CC% -g -Wall -Wno-incompatible-pointer-types -mwin32 -I include/ -c common/thread.c -o bin/thread.o
+	echo "...Thread."
+	%CC% -g -Wall -Wno-cpp -mwin32 -I include/ -c common/thread.c -o bin/thread.o
 
 
-	echo "...Enet_engine.	[incompatible pointer warnings, ignore for now]"
-	%CC% -Wall -Wno-incompatible-pointer-types -Wno-switch -Llib/enet/x64 -I lib/enet/include -lenet64 -lws2_32 -lwinmm -g -mwin32 -I include/ -c common/enet_engine.c -o bin/enet_engine.o
+	echo "...Enet_engine."
+	%CC% -Wall -Wno-cpp -Llib/enet/x64 -I lib/enet/include -lenet64 -lws2_32 -lwinmm -g -mwin32 -I include/ -c common/enet_engine.c -o bin/enet_engine.o
 
 	echo:
 	echo "Finished."
@@ -134,10 +134,10 @@ goto main
 	echo "Merging object files into executables...."
 	echo:
 
-	%CC% -Llib/enet/x64 -I lib/enet/include -I include/ -o bin/client/client.exe bin/cipher.o bin/config.o bin/enet_engine.o bin/logger.o bin/thread.o bin/client/client.o bin/client/input.o bin/client/main.o -lenet64 -lws2_32 -lwinmm -g -mwin32
+	%CC% -Wall -Wno-cpp -Llib/enet/x64 -I lib/enet/include -I include/ -o bin/client/client.exe bin/cipher.o bin/config.o bin/enet_engine.o bin/logger.o bin/thread.o bin/client/client.o bin/client/input.o bin/client/main.o -lenet64 -lws2_32 -lwinmm -g -mwin32
 
 
-	%CC% -Llib/enet/x64 -I lib/enet/include -I include/ -o bin/server/server.exe bin/cipher.o bin/config.o bin/enet_engine.o bin/logger.o bin/thread.o bin/server/server.o bin/server/portio.o bin/server/main.o -lenet64 -lws2_32 -lwinmm -g -mwin32
+	%CC% -Wall -Wno-cpp -Llib/enet/x64 -I lib/enet/include -I include/ -o bin/server/server.exe bin/cipher.o bin/config.o bin/enet_engine.o bin/logger.o bin/thread.o bin/server/server.o bin/server/portio.o bin/server/main.o -lenet64 -lws2_32 -lwinmm -g -mwin32
 
 	echo "Finished."
 	echo:

@@ -20,7 +20,7 @@ int init_client(CLIENT * this_client, char * ipaddr, short port) {
 
 int destructor(CLIENT * this_client) {
 
-	enet_cleanup(this_client);
+	enet_cleanup(this_client->engine);
 
 	return 0;
 }
@@ -29,13 +29,17 @@ CLIENT * factory_create_client() {
 	return (struct CLIENT*)malloc(sizeof(CLIENT*));
 }
 
-int host_connect(CLIENT * this_client) {
+int host_connect_client(CLIENT * this_client) {
     //connect
+
+    return 0;
 }
 
-void host_disconnect_client(CLIENT * this_client) {
+int host_disconnect_client(CLIENT * this_client) {
 	this_client->is_connected = -1;
     //call disconnect call.
+
+    return 0;
 }
 
 ////////////////////////////////////////////////////
@@ -46,6 +50,8 @@ int handle_io_requests(CLIENT* client, int HOST_TYPE) { //is on a separate threa
 
     enet_manage_hosts(client->engine, &io_callback_on_connected_client,
         &io_callback_on_receive_data, &io_callback_on_disconnected_client);
+
+    return 0;
 }
 
 /////////////////////////////////////////////////////////////////////

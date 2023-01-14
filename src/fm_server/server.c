@@ -22,7 +22,7 @@ int init_server(SERVER * this_server, char * ipaddr, short port) {
 
 int destructor(SERVER * this_server) {
 
-	enet_cleanup(this_server);
+	enet_cleanup(this_server->engine);
 
 	return 0;
 }
@@ -54,6 +54,8 @@ int handle_io_requests(SERVER* server, int HOST_TYPE) { //is on a separate threa
 
     enet_manage_hosts(server->engine, &io_callback_on_connected_client,
         &io_callback_on_receive_data, &io_callback_on_disconnected_client);
+
+    return 0;
 }
 
 /////////////////////////////////////////////////////////////////////

@@ -42,7 +42,7 @@ void set_callback_events() {
     //bind_protocol_event(on_client_ready_stream, CLIENT_READY_STREAM);
 }
 
-int main(int argc, char** argv[])
+int main(int argc, char ** argv)
 {
 
     CLIENT* host_client = factory_create_client();
@@ -50,7 +50,7 @@ int main(int argc, char** argv[])
 
     //set_callback_events();
 
-    host_connect(host_client);
+    host_connect_client(host_client);
 
     return 0;
 }

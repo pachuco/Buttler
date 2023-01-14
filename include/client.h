@@ -34,11 +34,11 @@ typedef struct CLIENT {
 // Primary interface.
 
 int init_client(CLIENT* client, char * ipaddr, short port);
-int destructor();
+int destructor(CLIENT * this_client);
 CLIENT* factory_create_client();
 
-void host_connect_client();
-void host_disconnect_client();
+int host_connect_client(CLIENT * this_client);
+int host_disconnect_client(CLIENT * this_client);
 
 /////////////////////////////////
 

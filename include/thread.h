@@ -14,21 +14,6 @@
 //Unknown platform.
         #endif
 
-typedef struct THREAD {
-
-} THREAD;
-
-// Crossplatform.
-
-THREAD* factory_create_thread();
-int init_thread(THREAD* thread);
-
-int run_thread(THREAD* thread, int (*thread_ptr)(void*));
-int close_thread(THREAD* thread);
-int wait_thread(THREAD* thread);
-int stop_thread(THREAD* thread);
-int pause_thread(THREAD* thread);
-
 //separate these below in two distinctive files.
 
 // Conditional compilation.
@@ -67,5 +52,32 @@ int pause_thread_unix(THREAD_UNIX* thread);
 // Unknown platform.
 
 	#endif
+
+/////////////////////////////////////////////////////
+
+
+// Generic crssplatform.
+
+typedef struct THREAD {
+
+        #if defined(WIN32) && !defined(UNIX)
+        THREAD_WIN32* internal_thread;
+        #elif defined(UNIX) && !defined(WIN32)
+        THREAD_UNIX* internal_thread;
+        #else
+//Unknown platform.
+        #endif
+} THREAD;
+
+// Crossplatform.
+
+THREAD* factory_create_thread();
+int init_thread(THREAD* thread);
+
+int run_thread(THREAD* thread, int (*thread_ptr)(void*));
+int close_thread(THREAD* thread);
+int wait_thread(THREAD* thread);
+int stop_thread(THREAD* thread);
+int pause_thread(THREAD* thread);
 
 #endif

@@ -20,15 +20,17 @@ Usage:
 
 const int MINIMUM_ARGS = 2;
 
-int handle_arguments(int argc, char** argv[]) {
+int handle_arguments(int argc, char ** argv) {
 
     log_info(global_logger, "Server started at @time@...");
     log_info(global_logger, "Parsing arguments...");
 
     //read and parse arguments...
+
+    return 0;
 }
 
-int init(int argc, char** argv[]) {
+int init(int argc, char ** argv) {
 
     { // Logger
 
@@ -61,7 +63,7 @@ int init(int argc, char** argv[]) {
     return 0;
 }
 
-int main(int argc, char** argv[])
+int main(int argc, char ** argv)
 {
     if (argc < MINIMUM_ARGS) {
         printf("Usage: ...");

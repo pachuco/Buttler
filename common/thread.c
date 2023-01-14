@@ -17,9 +17,9 @@ int init_thread(THREAD* thread) {
 int run_thread(THREAD* thread, int (*thread_ptr)(void*)) {
 
 	#if defined(WIN32) && !defined(UNIX)
-		return run_thread_win32(thread, thread_ptr);
+		return run_thread_win32(thread->internal_thread, thread_ptr);
 	#elif defined(UNIX) && !defined(WIN32)
-		return run_thread_unix(thread, thread_ptr);
+		return run_thread_unix(thread->internal_thread, thread_ptr);
 	#else
 		//Unknown platform.
 		//throw compiler error.
@@ -29,9 +29,9 @@ int run_thread(THREAD* thread, int (*thread_ptr)(void*)) {
 int close_thread(THREAD* thread) {
 
 	#if defined(WIN32) && !defined(UNIX)
-        return close_thread_win32(thread);
+        return close_thread_win32(thread->internal_thread);
 	#elif defined(UNIX) && !defined(WIN32)
-        return close_thread_unix(thread);
+        return close_thread_unix(thread->internal_thread);
 	#else
         //Unknown platform.
 		//throw compiler error.
@@ -41,9 +41,9 @@ int close_thread(THREAD* thread) {
 int wait_thread(THREAD* thread) {
 
 	#if defined(WIN32) && !defined(UNIX)
-        return wait_thread_win32(thread);
+        return wait_thread_win32(thread->internal_thread);
 	#elif defined(UNIX) && !defined(WIN32)
-        return wait_thread_unix(thread);
+        return wait_thread_unix(thread->internal_thread);
 	#else
         //Unknown platform.
 		//throw compiler error.
@@ -52,9 +52,9 @@ int wait_thread(THREAD* thread) {
 
 int stop_thread(THREAD* thread) {
 	#if defined(WIN32) && !defined(UNIX)
-        return stop_thread_win32(thread);
+        return stop_thread_win32(thread->internal_thread);
     #elif defined(UNIX) && !defined(WIN32)
-        return stop_thread_unix(thread);
+        return stop_thread_unix(thread->internal_thread);
     #else
         //Unknown platform.
         //throw compiler error.
@@ -63,9 +63,9 @@ int stop_thread(THREAD* thread) {
 
 int pause_thread(THREAD* thread) {
 	#if defined(WIN32) && !defined(UNIX)
-        return pause_thread_win32(thread);
+        return pause_thread_win32(thread->internal_thread);
     #elif defined(UNIX) && !defined(WIN32)
-        return pause_thread_unix(thread);
+        return pause_thread_unix(thread->internal_thread);
     #else
         //Unknown platform.
         //throw compiler error.
