@@ -35,7 +35,11 @@ void start_server(SERVER * this_server) {
     this_server->is_listening = 0;
 
 	if (!this_server->is_listening) {
-		//this_server->listening_thread = new thread.@handle_io_requests (this_server);
+		THREAD* server_thread = factory_create_thread();
+		this_server->listening_thread = server_thread;
+
+		run_thread(server_thread, handle_io_requests, this_server, ENGINE_TYPE_SERVER);
+
 	} else {
 		//server already started. do nothing.
 		//warn/print out feedback to user

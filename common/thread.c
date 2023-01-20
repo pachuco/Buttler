@@ -14,7 +14,7 @@ int init_thread(THREAD* thread) {
     return 0;
 }
 
-int run_thread(THREAD* thread, int (*thread_ptr)(void*)) {
+int run_thread(THREAD* thread, int (*thread_ptr)(void*), void* parameter, int param_const) {
 
 	#if defined(WIN32) && !defined(UNIX)
 		return run_thread_win32(thread->internal_thread, thread_ptr);
@@ -88,7 +88,7 @@ int init_thread_win32(THREAD_WIN32* thread) {
     return 0;
 }
 
-int run_thread_win32(THREAD_WIN32 * thread, int (*thread_ptr)(void*)) {
+int run_thread_win32(THREAD_WIN32 * thread, int (*thread_ptr)(void*), void* parameter, int param_const) {
 	//CreateThread(...);
 
 	return 0;
@@ -130,7 +130,7 @@ int init_thread_unix(THREAD_UNIX* thread) {
     return 0;
 }
 
-int run_thread_unix(THREAD_UNIX * thread, int (*thread_ptr)(void*)) {
+int run_thread_unix(THREAD_UNIX * thread, int (*thread_ptr)(void*), void* parameter, int param_const) {
 	//pthread_create(...);
 
 	return 0;
