@@ -6,7 +6,10 @@
 
 int init_server(SERVER * this_server, char * ipaddr, short port) {
 
+	log_info(global_logger, "Creating Server's ENET_Engine...");
 	this_server->engine = create_enet_engine();
+
+	log_info(global_logger, "Initializing Server's ENET_Engine...");
 	enet_init(this_server->engine, ipaddr, port);
 
 	this_server->connected_clients = 0;
@@ -33,11 +36,14 @@ SERVER * factory_create_server() {
 
 void start_server(SERVER * this_server) {
     this_server->is_listening = 0;
+	log_info(global_logger, "Server's ENET_Engine set to listening state...");
 
 	if (!this_server->is_listening) {
+		log_info(global_logger, "Creating server managing thread...");
 		THREAD* server_thread = factory_create_thread();
 		this_server->host_thread = server_thread;
 
+		log_info(global_logger, "Running server thread...");
 		run_thread(server_thread, handle_io_requests, this_server, ENGINE_TYPE_SERVER);
 
 	} else {
@@ -53,6 +59,8 @@ void stop_server(SERVER * this_server) {
 ////////////////////////////////////////////////////
 
 int handle_io_requests(SERVER* server, int HOST_TYPE) { //is on a separate thread.
+
+    log_info(global_logger, "[On separate thread] ENET loop and callback handling...");
 
     enet_start_engine(server->engine, HOST_TYPE);
 

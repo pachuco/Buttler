@@ -7,16 +7,16 @@
 
 // Primary structures.
 
-LOGGER * global_logger = NULL;
-CONFIG * global_config = NULL;
-SERVER * global_server_lobby = NULL;
-CIPHER * global_cipher = NULL;
+extern LOGGER * global_logger;
+extern CONFIG * global_config;
+extern SERVER * global_server_lobby;
+extern CIPHER * global_cipher;
 
 // Counters and configurables.
 
-char * IP_ADDRESS = NULL;
-short LISTENING_PORT = 23;
+extern char * IP_ADDRESS;
+extern short LISTENING_PORT;
 
-int CONNECTED_CLIENTS = 0;
+extern int CONNECTED_CLIENTS;
 
 #endif

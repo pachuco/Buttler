@@ -1,6 +1,6 @@
 /*
 Usage:
-	fm_server -a "0.0.0.0" -p 23
+	fm_server -a "0.0.0.0" -p 2345
 	fm_server --config cfg.ini
 */
 
@@ -20,6 +20,19 @@ Usage:
 
 const int MINIMUM_ARGS = 2;
 
+//////////////////////////////////////////////////////////////////////
+
+LOGGER * global_logger = NULL;
+CONFIG * global_config = NULL;
+SERVER * global_server_lobby = NULL;
+CIPHER * global_cipher = NULL;
+
+// Counters and configurables.
+
+char * IP_ADDRESS = NULL;
+short LISTENING_PORT = 23;
+
+int CONNECTED_CLIENTS = 0;
 
 //////////////////////////////////////////////////////////////////////
 
@@ -114,10 +127,9 @@ int main(int argc, char ** argv)
         printf("Usage: ...");
        	return 1;
     } else {
+	init(argc, argv);
         handle_arguments(argc, argv);
     }
-
-    init(argc, argv);
 
     // =====================
 
@@ -127,8 +139,10 @@ int main(int argc, char ** argv)
 	global_server_lobby = factory_create_server();
 	init_server(global_server_lobby, argv[1], argv[2]);
 
+	log_info(global_logger, "Setting callback events...");
 	set_callback_events();
 
+	log_info(global_logger, "Starting server...");
         start_server(global_server_lobby); //on a new thread.
     }
 

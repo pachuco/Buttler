@@ -40,11 +40,11 @@ int log_info(LOGGER * logger, char * message) {
 	if (logger->__ENABLED_LOGGING == 0) {
 
 		if (logger->__TYPE_OF_LOGGER == LOGGER_FILE) {
-			printf("to_file");
+			printf("%s\n", message); //to file
 		} else if (logger->__TYPE_OF_LOGGER == LOGGER_STDOUT) {
-			printf("to_stdout");
+			printf("%s\n", message); //to stdout
 		} else {
-			printf("to_stderr");
+			printf("%s\n", message); //to stderr
 		}
 	}
 
@@ -55,11 +55,11 @@ int log_error(LOGGER * logger, char * message) {
 	if (logger->__ENABLED_LOGGING == 0) {
 
         if (logger->__TYPE_OF_LOGGER == LOGGER_FILE) {
-            printf("to_file");
+            printf("%s\n", message); //to file
         } else if (logger->__TYPE_OF_LOGGER == LOGGER_STDOUT) {
-            printf("to_stdout");
+            printf("%s\n", message); //to stdout
         } else {
-            printf("to_stderr");
+            printf("%s\n", message); //to stderr
         }
     }
 
@@ -70,11 +70,11 @@ int log_warning(LOGGER * logger, char * message) {
 	if (logger->__ENABLED_LOGGING == 0) {
 
 		if (logger->__TYPE_OF_LOGGER == LOGGER_FILE) {
-            printf("to_file");
+            printf("%s\n", message); //to file
         } else if (logger->__TYPE_OF_LOGGER == LOGGER_STDOUT) {
-            printf("to_stdout");
+            printf("%s\n", message); //to stdout
         } else {
-            printf("to_stderr");
+            printf("%s\n", message); //to stderr
         }
     }
 
