@@ -14,16 +14,16 @@
 #define CLIENT_OPT_IN               0x05
 #define CLIENT_OPT_OUT              0x06
 #define CLIENT_FM_COMMAND           0x07
+#define CLIENT_READY_STREAM         0x08
 
-
-#define SERVER_DETAILS_ACK          0x08
-#define SERVER_ACKNOWLEDGE          0x09
-#define SERVER_PING                 0x0A
-#define SERVER_DESTROY              0x0B
-#define SERVER_OPT_RESPONSE         0x0C
-#define SERVER_OPT_OWNERSHIP        0x0D
-#define SERVER_LOBBY_BROADCAST      0x0E
-#define SERVER_AUDIO_CHUNK          0x0F
+#define SERVER_DETAILS_ACK          0x09
+#define SERVER_ACKNOWLEDGE          0x0A
+#define SERVER_PING                 0x0B
+#define SERVER_DESTROY              0x0C
+#define SERVER_OPT_RESPONSE         0x0D
+#define SERVER_OPT_OWNERSHIP        0x0E
+#define SERVER_LOBBY_BROADCAST      0x0F
+#define SERVER_AUDIO_CHUNK          0x10
 
 
 #define CLIENT_RESERVED             0xFF

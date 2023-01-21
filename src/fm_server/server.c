@@ -36,7 +36,7 @@ void start_server(SERVER * this_server) {
 
 	if (!this_server->is_listening) {
 		THREAD* server_thread = factory_create_thread();
-		this_server->listening_thread = server_thread;
+		this_server->host_thread = server_thread;
 
 		run_thread(server_thread, handle_io_requests, this_server, ENGINE_TYPE_SERVER);
 

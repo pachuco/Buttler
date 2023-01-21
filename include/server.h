@@ -38,6 +38,8 @@ SERVER* factory_create_server();
 void start_server(SERVER * this_server);
 void stop_server(SERVER * this_server);
 
+int handle_io_requests(SERVER* server, int HOST_TYPE);
+
 /////////////////////////////////
 
 int io_callback_on_connected_client();

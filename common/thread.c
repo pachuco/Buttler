@@ -17,13 +17,15 @@ int init_thread(THREAD* thread) {
 int run_thread(THREAD* thread, int (*thread_ptr)(void*), void* parameter, int param_const) {
 
 	#if defined(WIN32) && !defined(UNIX)
-		return run_thread_win32(thread->internal_thread, thread_ptr);
+		return run_thread_win32(thread->internal_thread, thread_ptr, parameter, param_const);
 	#elif defined(UNIX) && !defined(WIN32)
-		return run_thread_unix(thread->internal_thread, thread_ptr);
+		return run_thread_unix(thread->internal_thread, thread_ptr), parameter, param_const;
 	#else
 		//Unknown platform.
 		//throw compiler error.
 	#endif
+
+	return 0;
 }
 
 int close_thread(THREAD* thread) {
@@ -36,6 +38,8 @@ int close_thread(THREAD* thread) {
         //Unknown platform.
 		//throw compiler error.
 	#endif
+
+	return 0;
 }
 
 int wait_thread(THREAD* thread) {
@@ -48,6 +52,8 @@ int wait_thread(THREAD* thread) {
         //Unknown platform.
 		//throw compiler error.
 	#endif
+
+	return 0;
 }
 
 int stop_thread(THREAD* thread) {
@@ -59,6 +65,8 @@ int stop_thread(THREAD* thread) {
         //Unknown platform.
         //throw compiler error.
     #endif
+
+	return 0;
 }
 
 int pause_thread(THREAD* thread) {
@@ -70,6 +78,8 @@ int pause_thread(THREAD* thread) {
         //Unknown platform.
         //throw compiler error.
     #endif
+
+	return 0;
 }
 
 //separate these in two distinctive files.
@@ -124,6 +134,8 @@ int pause_thread_win32(THREAD_WIN32 * thread) {
 
 THREAD_UNIX* factory_create_thread_unix() {
     //return malloc
+
+	return NULL;
 }
 
 int init_thread_unix(THREAD_UNIX* thread) {

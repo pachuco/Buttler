@@ -127,7 +127,7 @@ int main(int argc, char ** argv)
 	global_server_lobby = factory_create_server();
 	init_server(global_server_lobby, argv[1], argv[2]);
 
-	set_callback_events()
+	set_callback_events();
 
         start_server(global_server_lobby); //on a new thread.
     }
