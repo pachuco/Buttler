@@ -19,7 +19,7 @@ int run_thread(THREAD* thread, int (*thread_ptr)(void*), void* parameter, int pa
 	#if defined(WIN32) && !defined(UNIX)
 		return run_thread_win32(thread->internal_thread, thread_ptr, parameter, param_const);
 	#elif defined(UNIX) && !defined(WIN32)
-		return run_thread_unix(thread->internal_thread, thread_ptr), parameter, param_const;
+		return run_thread_unix(thread->internal_thread, thread_ptr, parameter, param_const);
 	#else
 		//Unknown platform.
 		//throw compiler error.
