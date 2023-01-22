@@ -20,7 +20,7 @@ void* run_thread(THREAD* thread, unsigned long (*thread_ptr)(void*), void* param
 
 	#if defined(WIN32) && !defined(UNIX)
 		log_info(global_logger, "Windows detected...");
-		run_thread_win32(thread->internal_thread, thread_ptr, parameter, param_const);
+		run_thread_win32(NULL, thread_ptr, parameter, param_const);
 		//return run_thread_win32(thread->internal_thread, thread_ptr, parameter, param_const);
 	#elif defined(UNIX) && !defined(WIN32)
 		return run_thread_unix(thread->internal_thread, thread_ptr, parameter, param_const);
