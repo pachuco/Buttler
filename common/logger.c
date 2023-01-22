@@ -39,10 +39,14 @@ LOGGER * factory_create_logger() {
 int log_info(LOGGER * logger, char * message) {
 	if (logger->__ENABLED_LOGGING == 0) {
 
+		time_t t = time(NULL);
+  		struct tm tm = *localtime(&t);
+
 		if (logger->__TYPE_OF_LOGGER == LOGGER_FILE) {
 			printf("%s\n", message); //to file
 		} else if (logger->__TYPE_OF_LOGGER == LOGGER_STDOUT) {
-			printf("%s\n", message); //to stdout
+			//to stdout
+			printf("INFO: [[ %d-%02d-%02d %02d:%02d:%02d ]] - %s\n", tm.tm_year + 1900, tm.tm_mon + 1, tm.tm_mday, tm.tm_hour, tm.tm_min, tm.tm_sec, message);
 		} else {
 			printf("%s\n", message); //to stderr
 		}
@@ -54,14 +58,18 @@ int log_info(LOGGER * logger, char * message) {
 int log_error(LOGGER * logger, char * message) {
 	if (logger->__ENABLED_LOGGING == 0) {
 
-        if (logger->__TYPE_OF_LOGGER == LOGGER_FILE) {
-            printf("%s\n", message); //to file
-        } else if (logger->__TYPE_OF_LOGGER == LOGGER_STDOUT) {
-            printf("%s\n", message); //to stdout
-        } else {
-            printf("%s\n", message); //to stderr
-        }
-    }
+		time_t t = time(NULL);
+                struct tm tm = *localtime(&t);
+
+        	if (logger->__TYPE_OF_LOGGER == LOGGER_FILE) {
+            		printf("%s\n", message); //to file
+        	} else if (logger->__TYPE_OF_LOGGER == LOGGER_STDOUT) {
+            		//to stdout
+	    		printf("ERROR: [[ %d-%02d-%02d %02d:%02d:%02d ]] - %s\n", tm.tm_year + 1900, tm.tm_mon + 1, tm.tm_mday, tm.tm_hour, tm.tm_min, tm.tm_sec, message);
+        	} else {
+            		printf("%s\n", message); //to stderr
+        	}
+    	}
 
     return 0;
 }
@@ -69,14 +77,18 @@ int log_error(LOGGER * logger, char * message) {
 int log_warning(LOGGER * logger, char * message) {
 	if (logger->__ENABLED_LOGGING == 0) {
 
+		time_t t = time(NULL);
+                struct tm tm = *localtime(&t);
+
 		if (logger->__TYPE_OF_LOGGER == LOGGER_FILE) {
-            printf("%s\n", message); //to file
-        } else if (logger->__TYPE_OF_LOGGER == LOGGER_STDOUT) {
-            printf("%s\n", message); //to stdout
-        } else {
-            printf("%s\n", message); //to stderr
-        }
-    }
+            		printf("%s\n", message); //to file
+        	} else if (logger->__TYPE_OF_LOGGER == LOGGER_STDOUT) {
+            		//to stdout
+	    		printf("WARN: [[ %d-%02d-%02d %02d:%02d:%02d ]] - %s\n", tm.tm_year + 1900, tm.tm_mon + 1, tm.tm_mday, tm.tm_hour, tm.tm_min, tm.tm_sec, message);
+        	} else {
+            		printf("%s\n", message); //to stderr
+        	}
+    	}
 
     return 0;
 }
