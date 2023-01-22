@@ -137,7 +137,7 @@ int main(int argc, char ** argv)
         log_info(global_logger, "Setting up server and lobby...");
 
 	global_server_lobby = factory_create_server();
-	init_server(global_server_lobby, argv[1], argv[2]);
+	init_server(global_server_lobby, argv[1], (short)atoi(argv[2]));
 
 	log_info(global_logger, "Setting callback events...");
 	set_callback_events();

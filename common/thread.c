@@ -14,10 +14,14 @@ int init_thread(THREAD* thread) {
     return 0;
 }
 
-int run_thread(THREAD* thread, int (*thread_ptr)(void*), void* parameter, int param_const) {
+void* run_thread(THREAD* thread, unsigned long (*thread_ptr)(void*), void* parameter, int param_const) {
+
+	log_info(global_logger, "Running thread, crossplatform...");
 
 	#if defined(WIN32) && !defined(UNIX)
-		return run_thread_win32(thread->internal_thread, thread_ptr, parameter, param_const);
+		log_info(global_logger, "Windows detected...");
+		run_thread_win32(thread->internal_thread, thread_ptr, parameter, param_const);
+		//return run_thread_win32(thread->internal_thread, thread_ptr, parameter, param_const);
 	#elif defined(UNIX) && !defined(WIN32)
 		return run_thread_unix(thread->internal_thread, thread_ptr, parameter, param_const);
 	#else
@@ -98,10 +102,13 @@ int init_thread_win32(THREAD_WIN32* thread) {
     return 0;
 }
 
-int run_thread_win32(THREAD_WIN32 * thread, int (*thread_ptr)(void*), void* parameter, int param_const) {
-	//CreateThread(...);
+void* run_thread_win32(THREAD_WIN32 * thread, unsigned long (*thread_ptr)(void*), void* parameter, int param_const) {
 
-	return 0;
+	log_info(global_logger, "Calling CreateThread...");
+
+	return CreateThread(NULL, 0, thread_ptr, parameter, 0, NULL);
+
+	//return 0;
 }
 
 int close_thread_win32(THREAD_WIN32 * thread) {
@@ -142,7 +149,7 @@ int init_thread_unix(THREAD_UNIX* thread) {
     return 0;
 }
 
-int run_thread_unix(THREAD_UNIX * thread, int (*thread_ptr)(void*), void* parameter, int param_const) {
+void* run_thread_unix(THREAD_UNIX * thread, unsigned int (*thread_ptr)(void*), void* parameter, int param_const) {
 	//pthread_create(...);
 
 	return 0;

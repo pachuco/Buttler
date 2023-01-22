@@ -44,7 +44,7 @@ void start_server(SERVER * this_server) {
 		this_server->host_thread = server_thread;
 
 		log_info(global_logger, "Running server thread...");
-		run_thread(server_thread, handle_io_requests, this_server, ENGINE_TYPE_SERVER);
+		run_thread(server_thread, handle_io_requests, (void*)this_server, ENGINE_TYPE_SERVER);
 
 	} else {
 		//server already started. do nothing.
@@ -58,11 +58,15 @@ void stop_server(SERVER * this_server) {
 
 ////////////////////////////////////////////////////
 
-int handle_io_requests(SERVER* server, int HOST_TYPE) { //is on a separate thread.
+unsigned long handle_io_requests(void* param) { //(SERVER* server, int HOST_TYPE) { //is on a separate thread.
+
+    SERVER* server = (SERVER*)param;
 
     log_info(global_logger, "[On separate thread] ENET loop and callback handling...");
 
-    enet_start_engine(server->engine, HOST_TYPE);
+    enet_start_engine(server->engine, ENGINE_TYPE_SERVER);
+
+    log_info(global_logger, "[On separate thread] Starting and managing enet hosts...");
 
     enet_manage_hosts(server->engine, &io_callback_on_connected_client,
         &io_callback_on_receive_data, &io_callback_on_disconnected_client);

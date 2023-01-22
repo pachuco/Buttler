@@ -10,6 +10,10 @@
 
 // Structures:
 
+typedef struct LOGGER LOGGER;
+
+extern LOGGER* global_logger;
+
 extern const unsigned int LOGGER_FILE;
 extern const unsigned int LOGGER_STDOUT;
 extern const unsigned int LOGGER_STDERR;

@@ -5,6 +5,10 @@
 #ifndef CLIENT_H
 #define CLIENT_H
 
+typedef struct CLIENT CLIENT;
+
+extern CLIENT* global_client;
+
 #include "protocol.h"
 
 #include "thread.h"

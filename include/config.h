@@ -8,6 +8,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+typedef struct CONFIG CONFIG;
+
+extern CONFIG* global_config;
+
 extern const unsigned int CONFIG_OVERWRITE;
 
 typedef struct CONFIG {

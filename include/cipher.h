@@ -10,6 +10,10 @@
 
 //#include <mbedtls.h>
 
+typedef struct CIPHER CIPHER;
+
+extern CIPHER* global_cipher;
+
 extern const unsigned int CIPHER_RSA;
 extern const unsigned int CIPHER_AES;
 extern const unsigned int CIPHER_TWOFISH;

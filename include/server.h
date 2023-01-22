@@ -7,6 +7,8 @@
 
 typedef struct SERVER SERVER;
 
+extern SERVER* global_server;
+
 #include "protocol.h"
 
 #include "thread.h"
@@ -42,7 +44,7 @@ SERVER* factory_create_server();
 void start_server(SERVER * this_server);
 void stop_server(SERVER * this_server);
 
-int handle_io_requests(SERVER* server, int HOST_TYPE);
+unsigned long handle_io_requests(void* param); //(SERVER* server, int HOST_TYPE);
 
 /////////////////////////////////
 

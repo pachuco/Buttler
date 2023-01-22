@@ -3,6 +3,35 @@
 
 #include "client.h"
 
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+// Project Header files.
+#include "logger.h"
+#include "config.h"
+#include "thread.h"
+#include "cipher.h"
+#include "client.h"
+
+#include "globals.h"
+
+const int MINIMUM_ARGS = 2;
+
+//////////////////////////////////////////////////////////////////////
+
+LOGGER * global_logger = NULL;
+CONFIG * global_config = NULL;
+CLIENT * global_client = NULL;
+CIPHER * global_cipher = NULL;
+
+// Counters and configurables.
+
+char * IP_ADDRESS = NULL;
+short CONNECTING_PORT = 2345;
+
+//////////////////////////////////////////////////////////////////////
+
 int on_client_opt_out() {
     return 0;
 }
@@ -45,12 +74,12 @@ void set_callback_events() {
 int main(int argc, char ** argv)
 {
 
-    CLIENT* host_client = factory_create_client();
-    init_client(host_client, "127.0.0.1", 2345);
+    global_client = factory_create_client();
+    init_client(global_client, "127.0.0.1", CONNECTING_PORT);
 
     //set_callback_events();
 
-    host_connect_client(host_client);
+    host_connect_client(global_client);
 
     return 0;
 }

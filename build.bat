@@ -134,9 +134,13 @@ goto main
 	echo "Merging object files into executables...."
 	echo:
 
+
+	echo "Client exe."
+	echo:
 	%CC% -Wall -Wno-cpp -Llib/enet/x64 -I lib/enet/include -I include/ -o bin/client/client.exe bin/cipher.o bin/config.o bin/enet_engine.o bin/logger.o bin/thread.o bin/client/client.o bin/client/input.o bin/client/main.o -lenet64 -lws2_32 -lwinmm -g -mwin32
 
-
+	echo "Server exe."
+	echo:
 	%CC% -Wall -Wno-cpp -Llib/enet/x64 -I lib/enet/include -I include/ -o bin/server/server.exe bin/cipher.o bin/config.o bin/enet_engine.o bin/logger.o bin/thread.o bin/server/server.o bin/server/portio.o bin/server/main.o -lenet64 -lws2_32 -lwinmm -g -mwin32
 
 	echo "Finished."
