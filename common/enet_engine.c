@@ -23,6 +23,15 @@ int enet_init(ENET_ENGINE* engine, char * ip_address, short port) {
     engine->ip_addr = ip_address;
     engine->port = port;
 
+    char log_msg_ip[1024] = {0};
+    char log_msg_port[1024] = {0};
+
+    snprintf(log_msg_ip, sizeof(log_msg_ip), "[ENET Engine] Configured to IP: %s...", ip_address);
+    snprintf(log_msg_port, sizeof(log_msg_port), "[ENET Engine] Configured too Port: %d", port);
+
+    log_info(global_logger, log_msg_ip);
+    log_info(global_logger, log_msg_port);
+
     //initialize other structs...
 
     if (enet_initialize () != 0)
@@ -51,16 +60,26 @@ int enet_start_engine(ENET_ENGINE* engine, int ENGINE_TYPE) {
 
     if (engine->ENGINE_TYPE == ENGINE_TYPE_SERVER) {
 
+	log_info(global_logger, "[ENET Engine New Thread] Type of engine: SERVER.");
+
+	printf("ipaddr: %s", engine->ip_addr);
+
         if (strcmp(engine->ip_addr, "0.0.0.0")) {
             engine->host_addr.host = ENET_HOST_ANY;
             engine->host_addr.port = engine->port;
+
+	    log_info(global_logger, "[ENET Engine New Thread] Binding to ENET_HOST_ANY - 0.0.0.0 ...");
         } else {
+	    log_info(global_logger, "[ENET Engine New Thread] Binding to specified IP...");
             enet_address_set_host(&engine->host_addr, engine->ip_addr);
         }
 
         engine->host_socket = enet_host_create(&engine->host_addr, 32, 2, 0, 0);
 
     } else if (ENGINE_TYPE == ENGINE_TYPE_CLIENT) {
+
+	    log_info(global_logger, "[ENET Engine New Thread] Type of engine: CLIENT.");
+
             enet_address_set_host(&engine->host_addr, engine->ip_addr);
     } else {
             //... unknown engine type.
@@ -70,9 +89,10 @@ int enet_start_engine(ENET_ENGINE* engine, int ENGINE_TYPE) {
 }
 
 int enet_manage_hosts(ENET_ENGINE* engine, int (*on_connected_callback)(void*),
-                      int (*on_received_cacllback)(void*), int (*on_disconnected_callback)(void*)) {
+                      int (*on_received_callback)(void*), int (*on_disconnected_callback)(void*)) {
 
 	log_info(global_logger, "[ENET Engine New Thread] Managing hosts loop...");
+	log_info(global_logger, "------------------------------------------------");
 
 	while (enet_host_service (engine->host_socket, &engine->host_event, 1000) > 0)
 	{
@@ -104,6 +124,9 @@ int enet_manage_hosts(ENET_ENGINE* engine, int (*on_connected_callback)(void*),
             break;
         }
 	}
+
+	log_info(global_logger, "[ENET Engine New Thread] Host management loop exited...");
+	log_info(global_logger, "[ENET Engine New Thread] Shutting down or an error occured...");
 
 	return 0;
 }

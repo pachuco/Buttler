@@ -137,7 +137,7 @@ int main(int argc, char ** argv)
         log_info(global_logger, "[Main] Setting up server and lobby...");
 
 	global_server_lobby = factory_create_server();
-	init_server(global_server_lobby, argv[1], (short)atoi(argv[2]));
+	init_server(global_server_lobby, argv[2], (short)atoi(argv[4]));
 
 	log_info(global_logger, "[Main] Setting callback events...");
 	set_callback_events();
@@ -155,7 +155,7 @@ int main(int argc, char ** argv)
 
     { // Input loop & async listen.
         log_info(global_logger, "[Main] Awaiting input...");
-        log_info(global_logger, "[Main] Waiting for connections on IP: x and Port: y");
+        log_info(global_logger, "[Main] Waiting for connections...");
 
 	//input on main thread.
         //handle_input();
