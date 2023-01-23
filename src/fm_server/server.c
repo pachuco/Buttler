@@ -6,10 +6,10 @@
 
 int init_server(SERVER * this_server, char * ipaddr, short port) {
 
-	log_info(global_logger, "Creating Server's ENET_Engine...");
+	log_info(global_logger, "[Server] Creating Server's ENET_Engine...");
 	this_server->engine = create_enet_engine();
 
-	log_info(global_logger, "Initializing Server's ENET_Engine...");
+	log_info(global_logger, "[Server] Initializing Server's ENET_Engine...");
 	enet_init(this_server->engine, ipaddr, port);
 
 	this_server->connected_clients = 0;
@@ -36,14 +36,14 @@ SERVER * factory_create_server() {
 
 void start_server(SERVER * this_server) {
     this_server->is_listening = 0;
-	log_info(global_logger, "Server's ENET_Engine set to listening state...");
+	log_info(global_logger, "[Server] Server's ENET_Engine set to listening state...");
 
 	if (!this_server->is_listening) {
-		log_info(global_logger, "Creating server managing thread...");
+		log_info(global_logger, "[Server] Creating server managing thread...");
 		THREAD* server_thread = factory_create_thread();
 		this_server->host_thread = server_thread;
 
-		log_info(global_logger, "Running server thread...");
+		log_info(global_logger, "[Server] Running server thread...");
 		run_thread(server_thread, handle_io_requests, (void*)this_server, ENGINE_TYPE_SERVER);
 
 	} else {
@@ -62,11 +62,11 @@ unsigned long handle_io_requests(void* param) { //(SERVER* server, int HOST_TYPE
 
     SERVER* server = (SERVER*)param;
 
-    log_info(global_logger, "[On separate thread] ENET loop and callback handling...");
+    log_info(global_logger, "[Server New Thread] ENET loop and callback handling...");
 
     enet_start_engine(server->engine, ENGINE_TYPE_SERVER);
 
-    log_info(global_logger, "[On separate thread] Starting and managing enet hosts...");
+    log_info(global_logger, "[Server New Thread] Starting and managing enet hosts...");
 
     enet_manage_hosts(server->engine, &io_callback_on_connected_client,
         &io_callback_on_receive_data, &io_callback_on_disconnected_client);

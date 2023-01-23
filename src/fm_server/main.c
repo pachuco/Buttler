@@ -80,8 +80,8 @@ void set_callback_events() {
 
 int handle_arguments(int argc, char ** argv) {
 
-    log_info(global_logger, "Server started at @time@...");
-    log_info(global_logger, "Parsing arguments...");
+    log_info(global_logger, "[Main] Server started at @time@...");
+    log_info(global_logger, "[Main] Parsing arguments...");
 
     //read and parse arguments...
 
@@ -97,11 +97,11 @@ int init(int argc, char ** argv) {
 
     	enable_logger(global_logger);
 
-        log_info(global_logger, "Logger ready...");
+        log_info(global_logger, "[Main] Logger ready...");
     }
 
     { // Ini Config
-        log_info(global_logger, "Reading .ini configuration file...");
+        log_info(global_logger, "[Main] Reading .ini configuration file...");
 
 	global_config = factory_create_config();
 	init_config(global_config, "cfg.ini", CONFIG_OVERWRITE);
@@ -110,7 +110,7 @@ int init(int argc, char ** argv) {
     }
 
     { // Initialization
-        log_info(global_logger, "Initializing structures...");
+        log_info(global_logger, "[Main] Initializing structures...");
 
 	global_cipher = factory_create_cipher();
     	init_cipher(global_cipher);
@@ -134,28 +134,28 @@ int main(int argc, char ** argv)
     // =====================
 
     { // Server/Lobby
-        log_info(global_logger, "Setting up server and lobby...");
+        log_info(global_logger, "[Main] Setting up server and lobby...");
 
 	global_server_lobby = factory_create_server();
 	init_server(global_server_lobby, argv[1], (short)atoi(argv[2]));
 
-	log_info(global_logger, "Setting callback events...");
+	log_info(global_logger, "[Main] Setting callback events...");
 	set_callback_events();
 
-	log_info(global_logger, "Starting server...");
+	log_info(global_logger, "[Main] Call to start server...");
         start_server(global_server_lobby); //on a new thread.
     }
 
     { // Business Logic
-        log_info(global_logger, "Displaying welcome message...");
+        log_info(global_logger, "[Main] Displaying welcome message...");
 
         //Welcome message.
         //Prompt for input.
     }
 
     { // Input loop & async listen.
-        log_info(global_logger, "Awaiting input...");
-        log_info(global_logger, "Waiting for connections on IP: x and Port: y");
+        log_info(global_logger, "[Main] Awaiting input...");
+        log_info(global_logger, "[Main] Waiting for connections on IP: x and Port: y");
 
 	//input on main thread.
         //handle_input();

@@ -18,6 +18,8 @@ ENET_ENGINE* create_enet_engine() {
 
 int enet_init(ENET_ENGINE* engine, char * ip_address, short port) {
 
+    log_info(global_logger, "[ENET Engine] Initialization...");
+
     engine->ip_addr = ip_address;
     engine->port = port;
 
@@ -45,6 +47,8 @@ int enet_cleanup(ENET_ENGINE* engine) {
 int enet_start_engine(ENET_ENGINE* engine, int ENGINE_TYPE) {
     engine->ENGINE_TYPE = ENGINE_TYPE;
 
+    log_info(global_logger, "[ENET Engine New Thread] Starting engine...");
+
     if (engine->ENGINE_TYPE == ENGINE_TYPE_SERVER) {
 
         if (strcmp(engine->ip_addr, "0.0.0.0")) {
@@ -68,6 +72,8 @@ int enet_start_engine(ENET_ENGINE* engine, int ENGINE_TYPE) {
 int enet_manage_hosts(ENET_ENGINE* engine, int (*on_connected_callback)(void*),
                       int (*on_received_cacllback)(void*), int (*on_disconnected_callback)(void*)) {
 
+	log_info(global_logger, "[ENET Engine New Thread] Managing hosts loop...");
+
 	while (enet_host_service (engine->host_socket, &engine->host_event, 1000) > 0)
 	{
         switch (engine->host_event.type) //.type?...
@@ -77,14 +83,23 @@ int enet_manage_hosts(ENET_ENGINE* engine, int (*on_connected_callback)(void*),
 	    break;
 
             case ENET_EVENT_TYPE_CONNECT:
+
+		log_info(global_logger, "[ENET Engine] A client connected...");
+
                 enet_on_connect(engine->host_event);
             break;
 
             case ENET_EVENT_TYPE_RECEIVE:
+
+		log_info(global_logger, "[ENET Engine] Some data was received...");
+
                 enet_on_receive(engine->host_event);
             break;
 
             case ENET_EVENT_TYPE_DISCONNECT:
+
+		log_info(global_logger, "[ENET Engine] A client disconnected...");
+
                 enet_on_disconnect(engine->host_event);
             break;
         }

@@ -16,10 +16,10 @@ int init_thread(THREAD* thread) {
 
 void* run_thread(THREAD* thread, unsigned long (*thread_ptr)(void*), void* parameter, int param_const) {
 
-	log_info(global_logger, "Running thread, crossplatform...");
+	log_info(global_logger, "[Thread] Running thread, crossplatform...");
 
 	#if defined(WIN32) && !defined(UNIX)
-		log_info(global_logger, "Windows detected...");
+		log_info(global_logger, "[Thread] Windows detected...");
 		run_thread_win32(NULL, thread_ptr, parameter, param_const);
 		//return run_thread_win32(thread->internal_thread, thread_ptr, parameter, param_const);
 	#elif defined(UNIX) && !defined(WIN32)
@@ -104,7 +104,7 @@ int init_thread_win32(THREAD_WIN32* thread) {
 
 void* run_thread_win32(THREAD_WIN32 * thread, unsigned long (*thread_ptr)(void*), void* parameter, int param_const) {
 
-	log_info(global_logger, "Calling CreateThread...");
+	log_info(global_logger, "[Thread] Calling CreateThread...");
 
 	return CreateThread(NULL, 0, thread_ptr, parameter, 0, NULL);
 
