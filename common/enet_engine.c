@@ -1,5 +1,5 @@
 /*
-	Enet engine implementation.
+    Enet engine implementation.
 */
 
 #include "enet_engine.h"
@@ -12,11 +12,13 @@ const unsigned int CONN_STATE_DISCONNECTED = 2;
 const unsigned int CONN_STATE_UNRESPONSIVE = 3;
 const unsigned int CONN_STATE_POLLED = 4;
 
-ENET_ENGINE* create_enet_engine() {
-    return (ENET_ENGINE*)malloc(sizeof(ENET_ENGINE));
+ENET_ENGINE *create_enet_engine()
+{
+    return (ENET_ENGINE *)malloc(sizeof(ENET_ENGINE));
 }
 
-int enet_init(ENET_ENGINE* engine, char * ip_address, short port) {
+int enet_init(ENET_ENGINE *engine, char *ip_address, short port)
+{
 
     log_info(global_logger, "[ENET Engine] Initialization...");
 
@@ -32,12 +34,12 @@ int enet_init(ENET_ENGINE* engine, char * ip_address, short port) {
     log_info(global_logger, log_msg_ip);
     log_info(global_logger, log_msg_port);
 
-    //initialize other structs...
+    // initialize other structs...
 
-    if (enet_initialize () != 0)
+    if (enet_initialize() != 0)
     {
-        fprintf (stderr, "An error occurred while initializing ENet.\n");
-        atexit (enet_deinitialize);
+        fprintf(stderr, "An error occurred while initializing ENet.\n");
+        atexit(enet_deinitialize);
 
         return EXIT_FAILURE;
     }
@@ -45,7 +47,8 @@ int enet_init(ENET_ENGINE* engine, char * ip_address, short port) {
     return 0;
 }
 
-int enet_cleanup(ENET_ENGINE* engine) {
+int enet_cleanup(ENET_ENGINE *engine)
+{
     enet_host_destroy(engine->host_socket);
 
     atexit(enet_deinitialize);
@@ -53,105 +56,118 @@ int enet_cleanup(ENET_ENGINE* engine) {
     return 0;
 }
 
-int enet_start_engine(ENET_ENGINE* engine, int ENGINE_TYPE) {
+int enet_start_engine(ENET_ENGINE *engine, int ENGINE_TYPE)
+{
     engine->ENGINE_TYPE = ENGINE_TYPE;
 
     log_info(global_logger, "[ENET Engine New Thread] Starting engine...");
 
-    if (engine->ENGINE_TYPE == ENGINE_TYPE_SERVER) {
+    if (engine->ENGINE_TYPE == ENGINE_TYPE_SERVER)
+    {
 
-	log_info(global_logger, "[ENET Engine New Thread] Type of engine: SERVER.");
+        log_info(global_logger, "[ENET Engine New Thread] Type of engine: SERVER.");
 
-        if (strcmp(engine->ip_addr, "0.0.0.0") == 0) {
+        if (strcmp(engine->ip_addr, "0.0.0.0") == 0)
+        {
             engine->host_addr.host = ENET_HOST_ANY;
             engine->host_addr.port = engine->port;
 
-	    log_info(global_logger, "[ENET Engine New Thread] Binding to ENET_HOST_ANY - 0.0.0.0 ...");
-        } else {
-	    log_info(global_logger, "[ENET Engine New Thread] Binding to specified IP...");
+            log_info(global_logger, "[ENET Engine New Thread] Binding to ENET_HOST_ANY - 0.0.0.0 ...");
+        }
+        else
+        {
+            log_info(global_logger, "[ENET Engine New Thread] Binding to specified IP...");
             enet_address_set_host(&engine->host_addr, engine->ip_addr);
         }
 
         engine->host_socket = enet_host_create(&engine->host_addr, 32, 2, 0, 0);
-	//engine->client_socket = enet_host_create(NULL, 1, 2, 0, 0);
+        // engine->client_socket = enet_host_create(NULL, 1, 2, 0, 0);
+    }
+    else if (ENGINE_TYPE == ENGINE_TYPE_CLIENT)
+    {
 
-    } else if (ENGINE_TYPE == ENGINE_TYPE_CLIENT) {
+        log_info(global_logger, "[ENET Engine New Thread] Type of engine: CLIENT.");
 
-	    log_info(global_logger, "[ENET Engine New Thread] Type of engine: CLIENT.");
-
-            enet_address_set_host(&engine->host_addr, engine->ip_addr);
-    } else {
-            //... unknown engine type.
+        enet_address_set_host(&engine->host_addr, engine->ip_addr);
+    }
+    else
+    {
+        //... unknown engine type.
     }
 
-	return 0;
+    return 0;
 }
 
-int enet_manage_hosts(ENET_ENGINE* engine, int (*on_connected_callback)(void*),
-                      int (*on_received_callback)(void*), int (*on_disconnected_callback)(void*)) {
+int enet_manage_hosts(ENET_ENGINE *engine, int (*on_connected_callback)(void *),
+                      int (*on_received_callback)(void *), int (*on_disconnected_callback)(void *))
+{
 
-	log_info(global_logger, "[ENET Engine New Thread] Managing hosts loop...");
-	log_info(global_logger, "------------------------------------------------");
+    log_info(global_logger, "[ENET Engine New Thread] Managing hosts loop...");
+    log_info(global_logger, "------------------------------------------------");
 
-	while (enet_host_service(engine->host_socket, &engine->host_event, 1000) >= 0)
-	{
-        	switch (engine->host_event.type) //.type?...
-        	{
-	    	case ENET_EVENT_TYPE_NONE:
-			//do nothing.
-			log_info(global_logger, "[Enet Engine] Event NONE. All is fine.");
-	    	break;
+    while (enet_host_service(engine->host_socket, &engine->host_event, 1000) >= 0)
+    {
+        switch (engine->host_event.type) //.type?...
+        {
+        case ENET_EVENT_TYPE_NONE:
+            // do nothing.
+            log_info(global_logger, "[Enet Engine] Event NONE. All is fine.");
+            break;
 
-            	case ENET_EVENT_TYPE_CONNECT:
+        case ENET_EVENT_TYPE_CONNECT:
 
-			log_info(global_logger, "[ENET Engine] A client connected...");
+            log_info(global_logger, "[ENET Engine] A client connected...");
 
-                	enet_on_connect(engine->host_event);
-            	break;
+            enet_on_connect(engine->host_event);
+            break;
 
-            	case ENET_EVENT_TYPE_RECEIVE:
+        case ENET_EVENT_TYPE_RECEIVE:
 
-			log_info(global_logger, "[ENET Engine] Some data was received...");
+            log_info(global_logger, "[ENET Engine] Some data was received...");
 
-                	enet_on_receive(engine->host_event);
-            	break;
+            enet_on_receive(engine->host_event);
+            break;
 
-            	case ENET_EVENT_TYPE_DISCONNECT:
+        case ENET_EVENT_TYPE_DISCONNECT:
 
-			log_info(global_logger, "[ENET Engine] A client disconnected...");
+            log_info(global_logger, "[ENET Engine] A client disconnected...");
 
-                	enet_on_disconnect(engine->host_event);
-            	break;
-        	}
-	}
+            enet_on_disconnect(engine->host_event);
+            break;
+        }
+    }
 
-	log_info(global_logger, "[ENET Engine New Thread] ** Host management loop exited...");
-	log_info(global_logger, "[ENET Engine New Thread] ** Shutting down or an error occured...");
+    log_info(global_logger, "[ENET Engine New Thread] ** Host management loop exited...");
+    log_info(global_logger, "[ENET Engine New Thread] ** Shutting down or an error occured...");
 
-	return 0;
+    return 0;
 }
 
-int enet_destruct() {
+int enet_destruct()
+{
 
-    //free other structs.
+    // free other structs.
 
     return 0;
 }
 
 // Propagators //////////////////////////
 
-int enet_on_connect() {
+int enet_on_connect()
+{
     return 0;
 }
 
-int enet_on_receive() {
+int enet_on_receive()
+{
     return 0;
 }
 
-int enet_on_disconnect() {
+int enet_on_disconnect()
+{
     return 0;
 }
 
-//int enet_create_packet() {
+// int enet_create_packet() {
 
 //}

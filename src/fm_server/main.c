@@ -1,7 +1,7 @@
 /*
 Usage:
-	fm_server -a "0.0.0.0" -p 2345
-	fm_server --config cfg.ini
+    fm_server -a "0.0.0.0" -p 2345
+    fm_server --config cfg.ini
 */
 
 // Internal libraries.
@@ -22,47 +22,54 @@ const int MINIMUM_ARGS = 2;
 
 //////////////////////////////////////////////////////////////////////
 
-LOGGER * global_logger = NULL;
-CONFIG * global_config = NULL;
-BUTTLER_SERVER * global_server_lobby = NULL;
-CIPHER * global_cipher = NULL;
+LOGGER *global_logger = NULL;
+CONFIG *global_config = NULL;
+BUTTLER_SERVER *global_server_lobby = NULL;
+CIPHER *global_cipher = NULL;
 
 // Counters and configurables.
 
-char * IP_ADDRESS = NULL;
+char *IP_ADDRESS = NULL;
 short LISTENING_PORT = 23;
 
 int CONNECTED_CLIENTS = 0;
 
 //////////////////////////////////////////////////////////////////////
 
-int on_client_opt_out() {
+int on_client_opt_out()
+{
     return 0;
 }
 
-int on_client_opt_in() {
+int on_client_opt_in()
+{
     return 0;
 }
 
-int on_client_details() {
+int on_client_details()
+{
     return 0;
 }
 
-int on_client_fm_command() {
+int on_client_fm_command()
+{
     return 0;
 }
 
-int on_client_join_lobby() {
+int on_client_join_lobby()
+{
     return 0;
 }
 
-int on_client_ready_stream() {
+int on_client_ready_stream()
+{
     return 0;
 }
 
 // ====================================================================
 
-void set_callback_events() {
+void set_callback_events()
+{
 
     bind_protocol_event(on_client_join_lobby, CLIENT_CONNECT);
     bind_protocol_event(on_client_details, CLIENT_DETAILS);
@@ -75,27 +82,28 @@ void set_callback_events() {
     bind_protocol_event(on_client_ready_stream, CLIENT_READY_STREAM);
 }
 
-
 //////////////////////////////////////////////////////////////////////
 
-int handle_arguments(int argc, char ** argv) {
+int handle_arguments(int argc, char **argv)
+{
 
     log_info(global_logger, "[Main] Server started at @time@...");
     log_info(global_logger, "[Main] Parsing arguments...");
 
-    //read and parse arguments...
+    // read and parse arguments...
 
     return 0;
 }
 
-int init(int argc, char ** argv) {
+int init(int argc, char **argv)
+{
 
     { // Logger
 
-	global_logger = factory_create_logger();
-    	init_logger(global_logger, LOGGER_STDOUT, LOGGER_OVERWRITE);
+        global_logger = factory_create_logger();
+        init_logger(global_logger, LOGGER_STDOUT, LOGGER_OVERWRITE);
 
-    	enable_logger(global_logger);
+        enable_logger(global_logger);
 
         log_info(global_logger, "[Main] Logger ready...");
     }
@@ -103,31 +111,34 @@ int init(int argc, char ** argv) {
     { // Ini Config
         log_info(global_logger, "[Main] Reading .ini configuration file...");
 
-	global_config = factory_create_config();
-	init_config(global_config, "cfg.ini", CONFIG_OVERWRITE);
+        global_config = factory_create_config();
+        init_config(global_config, "cfg.ini", CONFIG_OVERWRITE);
 
-	close_config(global_config);
+        close_config(global_config);
     }
 
     { // Initialization
         log_info(global_logger, "[Main] Initializing structures...");
 
-	global_cipher = factory_create_cipher();
-    	init_cipher(global_cipher);
+        global_cipher = factory_create_cipher();
+        init_cipher(global_cipher);
 
-    	set_algorithm(global_cipher, CIPHER_TWOFISH);
+        set_algorithm(global_cipher, CIPHER_TWOFISH);
     }
 
     return 0;
 }
 
-int main(int argc, char ** argv)
+int main(int argc, char **argv)
 {
-    if (argc < MINIMUM_ARGS) {
+    if (argc < MINIMUM_ARGS)
+    {
         printf("Usage: ...");
-       	return 1;
-    } else {
-	init(argc, argv);
+        return 1;
+    }
+    else
+    {
+        init(argc, argv);
         handle_arguments(argc, argv);
     }
 
@@ -136,29 +147,29 @@ int main(int argc, char ** argv)
     { // Server/Lobby
         log_info(global_logger, "[Main] Setting up server and lobby...");
 
-	global_server_lobby = buttler_factory_create_server();
-	buttler_init_server(global_server_lobby, argv[2], (short)atoi(argv[4]));
+        global_server_lobby = buttler_factory_create_server();
+        buttler_init_server(global_server_lobby, argv[2], (short)atoi(argv[4]));
 
-	log_info(global_logger, "[Main] Setting callback events...");
-	set_callback_events();
+        log_info(global_logger, "[Main] Setting callback events...");
+        set_callback_events();
 
-	log_info(global_logger, "[Main] Call to start server...");
-        buttler_start_server(global_server_lobby); //on a new thread.
+        log_info(global_logger, "[Main] Call to start server...");
+        buttler_start_server(global_server_lobby); // on a new thread.
     }
 
     { // Business Logic
         log_info(global_logger, "[Main] Displaying welcome message...");
 
-        //Welcome message.
-        //Prompt for input.
+        // Welcome message.
+        // Prompt for input.
     }
 
     { // Input loop & async listen.
         log_info(global_logger, "[Main] Awaiting input...");
         log_info(global_logger, "[Main] Waiting for connections...");
 
-	//input on main thread.
-        //handle_input();
+        // input on main thread.
+        // handle_input();
     }
 
     getchar();

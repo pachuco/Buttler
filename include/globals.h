@@ -7,7 +7,7 @@
 
 // Counters and configurables.
 
-extern char * IP_ADDRESS;
+extern char *IP_ADDRESS;
 extern short LISTENING_PORT;
 
 extern int CONNECTED_CLIENTS;

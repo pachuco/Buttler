@@ -1,5 +1,5 @@
 /*
-        Wrapper for the Enet library.
+		Wrapper for the Enet library.
 */
 
 #ifndef ENET_ENGINE_H
@@ -22,12 +22,13 @@ extern const unsigned int CONN_STATE_DISCONNECTED;
 extern const unsigned int CONN_STATE_UNRESPONSIVE;
 extern const unsigned int CONN_STATE_POLLED;
 
-typedef struct ENET_ENGINE {
+typedef struct ENET_ENGINE
+{
 	ENetAddress host_addr;
 	ENetEvent host_event;
 
-	ENetHost * host_socket;
-	ENetHost * client_socket;
+	ENetHost *host_socket;
+	ENetHost *client_socket;
 
 	int ENGINE_TYPE;
 
@@ -38,15 +39,15 @@ typedef struct ENET_ENGINE {
 	short port;
 } ENET_ENGINE;
 
-ENET_ENGINE* create_enet_engine();
+ENET_ENGINE *create_enet_engine();
 
 // the main io service.
-int enet_init(ENET_ENGINE* engine, char * ip_address, short port);
-int enet_cleanup(ENET_ENGINE* engine);
+int enet_init(ENET_ENGINE *engine, char *ip_address, short port);
+int enet_cleanup(ENET_ENGINE *engine);
 
-int enet_start_engine(ENET_ENGINE* engine, int ENGINE_TYPE);
-int enet_manage_hosts(ENET_ENGINE* engine, int (*on_connected_callback)(void*),
-                      int (*on_received_cacllback)(void*), int (*on_disconnected_callback)(void*));
+int enet_start_engine(ENET_ENGINE *engine, int ENGINE_TYPE);
+int enet_manage_hosts(ENET_ENGINE *engine, int (*on_connected_callback)(void *),
+					  int (*on_received_cacllback)(void *), int (*on_disconnected_callback)(void *));
 
 int enet_destruct();
 
@@ -56,6 +57,6 @@ int enet_on_connect();
 int enet_on_receive();
 int enet_on_disconnect();
 
-//int enet_create_packet();
+// int enet_create_packet();
 
 #endif
