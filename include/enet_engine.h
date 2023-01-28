@@ -53,9 +53,9 @@ int enet_destruct();
 
 // Propagators
 
-int enet_on_connect();
-int enet_on_receive();
-int enet_on_disconnect();
+int enet_on_connect(ENET_ENGINE *engine, ENetEvent event);
+int enet_on_receive(ENET_ENGINE *engine, ENetEvent event);
+int enet_on_disconnect(ENET_ENGINE *engine, ENetEvent event);
 
 // int enet_create_packet();
 

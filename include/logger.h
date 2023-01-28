@@ -24,6 +24,7 @@ extern const unsigned int LOGGER_OVERWRITE;
 typedef struct LOGGER
 {
 	int __ENABLED_LOGGING;
+	int __ENABLED_DEBUG_LOGGING;
 	int __TYPE_OF_LOGGER;
 	int __MODE_OF_LOGGING;
 
@@ -41,6 +42,7 @@ int cleanup_logger(LOGGER *logger);
 int log_info(LOGGER *logger, char *message);
 int log_error(LOGGER *logger, char *message);
 int log_warning(LOGGER *logger, char *message);
+int log_debug(LOGGER *logger, char *message);
 
 char *get_current_time_str();
 
@@ -49,5 +51,8 @@ void set_log_path(LOGGER *logger, char *path);
 
 void enable_logger(LOGGER *logger);
 void disable_logger(LOGGER *logger);
+
+void enable_debug_logging(LOGGER *logger);
+void disable_debug_logging(LOGGER *logger);
 
 #endif

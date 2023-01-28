@@ -118,21 +118,21 @@ int enet_manage_hosts(ENET_ENGINE *engine, int (*on_connected_callback)(void *),
 
             log_info(global_logger, "[ENET Engine] A client connected...");
 
-            enet_on_connect(engine->host_event);
+            enet_on_connect(engine, engine->host_event, on_connected_callback);
             break;
 
         case ENET_EVENT_TYPE_RECEIVE:
 
             log_info(global_logger, "[ENET Engine] Some data was received...");
 
-            enet_on_receive(engine->host_event);
+            enet_on_receive(engine, engine->host_event, on_received_callback);
             break;
 
         case ENET_EVENT_TYPE_DISCONNECT:
 
             log_info(global_logger, "[ENET Engine] A client disconnected...");
 
-            enet_on_disconnect(engine->host_event);
+            enet_on_disconnect(engine, engine->host_event, on_disconnected_callback);
             break;
         }
     }
@@ -153,18 +153,38 @@ int enet_destruct()
 
 // Propagators //////////////////////////
 
-int enet_on_connect()
+int enet_on_connect(ENET_ENGINE *engine, ENetEvent event, int (*on_connected_callback)(void *))
 {
+
+    //low level logic, decrypting, etc.
+
+    //pass data directly to server to handle protocol
+
+
+    on_connected_callback(engine, event);
+
     return 0;
 }
 
-int enet_on_receive()
+int enet_on_receive(ENET_ENGINE *engine, ENetEvent event, int (*on_received_callback)(void *))
 {
+    //low level logic, decrypting, etc.
+
+    //pass data directly to server to handle protocol
+
+    on_received_callback(engine, event);
+
     return 0;
 }
 
-int enet_on_disconnect()
+int enet_on_disconnect(ENET_ENGINE *engine, ENetEvent event, int (*on_disconnected_callback)(void *))
 {
+    //low level logic, decrypting, etc.
+
+    //pass data directly to server to handle protocol
+
+    on_disconnected_callback(engine, event);
+
     return 0;
 }
 

@@ -104,6 +104,7 @@ int init(int argc, char **argv)
         init_logger(global_logger, LOGGER_STDOUT, LOGGER_OVERWRITE);
 
         enable_logger(global_logger);
+        enable_debug_logging(global_logger);
 
         log_info(global_logger, "[Main] Logger ready...");
     }
@@ -133,11 +134,11 @@ int main(int argc, char **argv)
 {
     if (argc < MINIMUM_ARGS)
     {
-        printf("Usage:\n");
-        printf("fm_server -a \"0.0.0.0\" -p 2345");
-        printf("fm_server --config cfg.ini");
+        printf("\nUsage:\n");
+        printf("fm_server -a \"0.0.0.0\" -p 2345\n");
+        printf("fm_server --config cfg.ini\n");
         printf("\n");
-        
+
         return 1;
     }
     else
