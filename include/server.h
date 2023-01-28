@@ -24,15 +24,14 @@ extern SERVER* global_server;
 typedef int (*callback)(void*);
 
 typedef struct SERVER {
-        ENET_ENGINE* engine;
-        int connected_clients;
-        char *ip_address;
-        short port;
-        int is_listening;
-        THREAD* host_thread;
-        unsigned int events[64];
-    callback function_pointer_table [64];
-
+        ENET_ENGINE* __engine;
+        int __connected_clients;
+        char* __ip_address;
+        short __port;
+        int __is_listening;
+        THREAD* __host_thread;
+        unsigned int __events[64];
+        callback __function_pointer_table [64];
 } SERVER;
 
 // Primary interface.

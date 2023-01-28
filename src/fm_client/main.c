@@ -81,5 +81,7 @@ int main(int argc, char ** argv)
 
     host_connect_client(global_client);
 
+    getchar();
+
     return 0;
 }

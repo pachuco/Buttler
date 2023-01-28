@@ -30,7 +30,15 @@ CLIENT * factory_create_client() {
 }
 
 int host_connect_client(CLIENT * this_client) {
-    //connect
+
+    ENetAddress address;
+    ENetPeer * peer;
+    ENetHost * client;
+
+    enet_address_set_host(&address, "127.0.0.1");
+    address.port = 2345;
+
+    peer = enet_host_connect(client, &address, 2, 0);
 
     return 0;
 }

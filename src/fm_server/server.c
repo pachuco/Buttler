@@ -7,16 +7,16 @@
 int init_server(SERVER * this_server, char * ipaddr, short port) {
 
 	log_info(global_logger, "[Server] Creating Server's ENET_Engine...");
-	this_server->engine = create_enet_engine();
+	this_server->__engine = create_enet_engine();
 
 	log_info(global_logger, "[Server] Initializing Server's ENET_Engine...");
-	enet_init(this_server->engine, ipaddr, port);
+	enet_init(this_server->__engine, ipaddr, port);
 
-	this_server->connected_clients = 0;
-	this_server->ip_address = ipaddr;
-	this_server->port = port;
+	this_server->__connected_clients = 0;
+	this_server->__ip_address = ipaddr;
+	this_server->__port = port;
 
-	this_server->is_listening = -1;
+	this_server->__is_listening = -1;
 
 	//error check
 
@@ -25,7 +25,7 @@ int init_server(SERVER * this_server, char * ipaddr, short port) {
 
 int destructor(SERVER * this_server) {
 
-	enet_cleanup(this_server->engine);
+	enet_cleanup(this_server->__engine);
 
 	return 0;
 }
@@ -35,13 +35,13 @@ SERVER * factory_create_server() {
 }
 
 void start_server(SERVER * this_server) {
-    this_server->is_listening = 0;
+    this_server->__is_listening = 0;
 	log_info(global_logger, "[Server] Server's ENET_Engine set to listening state...");
 
-	if (!this_server->is_listening) {
+	if (!this_server->__is_listening) {
 		log_info(global_logger, "[Server] Creating server managing thread...");
 		THREAD* server_thread = factory_create_thread();
-		this_server->host_thread = server_thread;
+		this_server->__host_thread = server_thread;
 
 		log_info(global_logger, "[Server] Running server thread...");
 		run_thread(server_thread, handle_io_requests, (void*)this_server, ENGINE_TYPE_SERVER);
@@ -53,7 +53,7 @@ void start_server(SERVER * this_server) {
 }
 
 void stop_server(SERVER * this_server) {
-	this_server->is_listening = -1;
+	this_server->__is_listening = -1;
 }
 
 ////////////////////////////////////////////////////
@@ -64,11 +64,11 @@ unsigned long handle_io_requests(void* param) { //(SERVER* server, int HOST_TYPE
 
     log_info(global_logger, "[Server New Thread] ENET loop and callback handling...");
 
-    enet_start_engine(server->engine, ENGINE_TYPE_SERVER);
+    enet_start_engine(server->__engine, ENGINE_TYPE_SERVER);
 
     log_info(global_logger, "[Server New Thread] Starting and managing enet hosts...");
 
-    enet_manage_hosts(server->engine, &io_callback_on_connected_client,
+    enet_manage_hosts(server->__engine, &io_callback_on_connected_client,
         &io_callback_on_receive_data, &io_callback_on_disconnected_client);
 
     return 0;
