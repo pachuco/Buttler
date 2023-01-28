@@ -4,47 +4,47 @@
 
 #include "client.h"
 
-int init_client(CLIENT * this_client, char * ipaddr, short port) {
+BUTTLER_CLIENT * buttler_factory_create_client() {
+	return (struct BUTTLER_CLIENT*)malloc(sizeof(BUTTLER_CLIENT*));
+}
 
-	this_client->engine = create_enet_engine();
-	enet_init(this_client->engine, ipaddr, port);
+int buttler_init_client(BUTTLER_CLIENT * client, char * ipaddr, short port) {
 
-	this_client->is_connected = 0;
-	this_client->ip_address = ipaddr;
-	this_client->port = port;
+	client->__engine = create_enet_engine();
+	enet_init(client->__engine, ipaddr, port);
+
+	client->__is_connected = 0;
+	client->__ip_address = ipaddr;
+	client->__port = port;
 
 	//error check
 
 	return 0;
 }
 
-int destructor(CLIENT * this_client) {
+int buttler_client_destructor(BUTTLER_CLIENT * client) {
 
-	enet_cleanup(this_client->engine);
+	enet_cleanup(client->__engine);
 
 	return 0;
 }
 
-CLIENT * factory_create_client() {
-	return (struct CLIENT*)malloc(sizeof(CLIENT*));
-}
-
-int host_connect_client(CLIENT * this_client) {
+int buttler_host_connect_client(BUTTLER_CLIENT * client) {
 
     ENetAddress address;
     ENetPeer * peer;
-    ENetHost * client;
+    ENetHost * host_client;
 
     enet_address_set_host(&address, "127.0.0.1");
     address.port = 2345;
 
-    peer = enet_host_connect(client, &address, 2, 0);
+    peer = enet_host_connect(host_client, &address, 2, 0);
 
     return 0;
 }
 
-int host_disconnect_client(CLIENT * this_client) {
-	this_client->is_connected = -1;
+int buttler_host_disconnect_client(BUTTLER_CLIENT * client) {
+	client->__is_connected = -1;
     //call disconnect call.
 
     return 0;
@@ -52,11 +52,11 @@ int host_disconnect_client(CLIENT * this_client) {
 
 ////////////////////////////////////////////////////
 
-int handle_io_requests(CLIENT* client, int HOST_TYPE) { //is on a separate thread.
+int buttler_handle_io_requests(BUTTLER_CLIENT* client, int HOST_TYPE) { //is on a separate thread.
 
-    enet_start_engine(client->engine, HOST_TYPE);
+    enet_start_engine(client->__engine, HOST_TYPE);
 
-    enet_manage_hosts(client->engine, &io_callback_on_connected_client,
+    enet_manage_hosts(client->__engine, &io_callback_on_connected_client,
         &io_callback_on_receive_data, &io_callback_on_disconnected_client);
 
     return 0;

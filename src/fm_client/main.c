@@ -22,8 +22,8 @@ const int MINIMUM_ARGS = 2;
 
 LOGGER * global_logger = NULL;
 CONFIG * global_config = NULL;
-CLIENT * global_client = NULL;
 CIPHER * global_cipher = NULL;
+BUTTLER_CLIENT * global_client = NULL;
 
 // Counters and configurables.
 
@@ -74,12 +74,12 @@ void set_callback_events() {
 int main(int argc, char ** argv)
 {
 
-    global_client = factory_create_client();
-    init_client(global_client, "127.0.0.1", CONNECTING_PORT);
+    global_client = buttler_factory_create_client();
+    buttler_init_client(global_client, "127.0.0.1", CONNECTING_PORT);
 
     //set_callback_events();
 
-    host_connect_client(global_client);
+    buttler_host_connect_client(global_client);
 
     getchar();
 

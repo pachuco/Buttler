@@ -26,16 +26,16 @@ typedef struct LOGGER {
 	int __TYPE_OF_LOGGER;
 	int __MODE_OF_LOGGING;
 
-	FILE * __log_file;
-	char * __log_file_path;
+	FILE* __log_file;
+	char* __log_file_path;
 } LOGGER;
 
 // Signatures:
 
+LOGGER * factory_create_logger();
+
 int init_logger(LOGGER * logger, int TYPE, int MODE);
 int cleanup_logger(LOGGER * logger);
-
-LOGGER * factory_create_logger();
 
 int log_info(LOGGER * logger, char * message);
 int log_error(LOGGER * logger, char * message);

@@ -20,21 +20,21 @@ extern const unsigned int CIPHER_TWOFISH;
 extern const unsigned int CIPHER_SERPENT;
 
 typedef struct KEY {
-	char * key;
-	int length;
+	char* __key;
+	int __length;
 } KEY;
 
 typedef struct CIPHER {
-	KEY * key;
-	int CHOSEN_ALGORITHM;
+	KEY* __key;
+	int __CHOSEN_ALGORITHM;
 } CIPHER;
 
 CIPHER * factory_create_cipher();
+KEY* create_key(char* key, int key_size);
 
 int init_cipher(CIPHER* cipher); //TODO
 int destruct(CIPHER* cipher); //dealloc pointers
 
-KEY* create_key(char* key, int key_size);
 int set_key(CIPHER* cipher, KEY * key);
 int set_algorithm(CIPHER* cipher, int ALGORITHM_TYPE);
 

@@ -10,6 +10,10 @@ const unsigned int LOGGER_STDERR = 3;
 
 const unsigned int LOGGER_OVERWRITE = 4;
 
+LOGGER * factory_create_logger() {
+	return (struct LOGGER*)malloc(sizeof(LOGGER));
+}
+
 int init_logger(LOGGER * logger, int TYPE, int MODE) {
     logger->__ENABLED_LOGGING = -1;
 	logger->__TYPE_OF_LOGGER = TYPE;
@@ -30,10 +34,6 @@ int cleanup_logger(LOGGER * logger) {
     free(logger);
 
     return 0;
-}
-
-LOGGER * factory_create_logger() {
-	return (struct LOGGER*)malloc(sizeof(LOGGER));
 }
 
 int log_info(LOGGER * logger, char * message) {

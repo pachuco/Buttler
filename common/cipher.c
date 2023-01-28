@@ -13,22 +13,20 @@ CIPHER * factory_create_cipher() {
     return (struct CIPHER*)malloc(sizeof(CIPHER));
 }
 
+KEY* create_key(char* key, int key_size) {
+    return (struct KEY*)malloc(sizeof(KEY));
+}
+
 int init_cipher(CIPHER* cipher) {
     return 0;
 }
 
 int destruct(CIPHER* cipher) {
 
-
-    free(cipher->key);
+    free(cipher->__key);
     free(cipher);
 
-
     return 0;
-}
-
-KEY* create_key(char* key, int key_size) {
-    return (struct KEY*)malloc(sizeof(KEY));
 }
 
 int set_key(CIPHER* cipher, KEY * key) {

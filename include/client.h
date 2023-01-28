@@ -5,9 +5,9 @@
 #ifndef CLIENT_H
 #define CLIENT_H
 
-typedef struct CLIENT CLIENT;
+typedef struct BUTTLER_CLIENT BUTTLER_CLIENT;
 
-extern CLIENT* global_client;
+extern BUTTLER_CLIENT* global_client;
 
 #include "protocol.h"
 
@@ -21,28 +21,31 @@ extern CLIENT* global_client;
 
 typedef int (*callback)(void*);
 
-typedef struct CLIENT {
-	ENET_ENGINE* engine;
-	THREAD* host_thread;
+typedef struct BUTTLER_CLIENT {
+	ENET_ENGINE* __engine;
+	THREAD* __host_thread;
 
-	int is_connected;
+	int __is_connected;
 
-	char *ip_address;
-	short port;
+	char* __ip_address;
+	short __port;
 
-	unsigned int events[64];
-    callback function_pointer_table [64];
+	unsigned int __events[64];
+    callback __function_pointer_table [64];
 
-} CLIENT;
+} BUTTLER_CLIENT;
 
 // Primary interface.
 
-int init_client(CLIENT* client, char * ipaddr, short port);
-int destructor(CLIENT * this_client);
-CLIENT* factory_create_client();
+BUTTLER_CLIENT* buttler_factory_create_client();
 
-int host_connect_client(CLIENT * this_client);
-int host_disconnect_client(CLIENT * this_client);
+int buttler_init_client(BUTTLER_CLIENT* client, char * ipaddr, short port);
+int buttler_client_destructor(BUTTLER_CLIENT * client);
+
+int buttler_host_connect_client(BUTTLER_CLIENT * client);
+int buttler_host_disconnect_client(BUTTLER_CLIENT * client);
+
+int buttler_handle_io_requests(BUTTLER_CLIENT* client, int HOST_TYPE);
 
 /////////////////////////////////
 
