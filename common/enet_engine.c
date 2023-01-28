@@ -27,7 +27,7 @@ int enet_init(ENET_ENGINE* engine, char * ip_address, short port) {
     char log_msg_port[1024] = {0};
 
     snprintf(log_msg_ip, sizeof(log_msg_ip), "[ENET Engine] Configured to IP: %s...", ip_address);
-    snprintf(log_msg_port, sizeof(log_msg_port), "[ENET Engine] Configured too Port: %d", port);
+    snprintf(log_msg_port, sizeof(log_msg_port), "[ENET Engine] Configured to Port: %d", port);
 
     log_info(global_logger, log_msg_ip);
     log_info(global_logger, log_msg_port);
@@ -62,9 +62,7 @@ int enet_start_engine(ENET_ENGINE* engine, int ENGINE_TYPE) {
 
 	log_info(global_logger, "[ENET Engine New Thread] Type of engine: SERVER.");
 
-	printf("ipaddr: %s", engine->ip_addr);
-
-        if (strcmp(engine->ip_addr, "0.0.0.0")) {
+        if (strcmp(engine->ip_addr, "0.0.0.0") == 0) {
             engine->host_addr.host = ENET_HOST_ANY;
             engine->host_addr.port = engine->port;
 
@@ -94,35 +92,35 @@ int enet_manage_hosts(ENET_ENGINE* engine, int (*on_connected_callback)(void*),
 	log_info(global_logger, "[ENET Engine New Thread] Managing hosts loop...");
 	log_info(global_logger, "------------------------------------------------");
 
-	while (enet_host_service (engine->host_socket, &engine->host_event, 1000) > 0)
+	while (enet_host_service(engine->host_socket, &engine->host_event, 1000) > 0)
 	{
-        switch (engine->host_event.type) //.type?...
-        {
-	    case ENET_EVENT_TYPE_NONE:
-		//do nothing.
-	    break;
+        	switch (engine->host_event.type) //.type?...
+        	{
+	    	case ENET_EVENT_TYPE_NONE:
+			//do nothing.
+	    	break;
 
-            case ENET_EVENT_TYPE_CONNECT:
+            	case ENET_EVENT_TYPE_CONNECT:
 
-		log_info(global_logger, "[ENET Engine] A client connected...");
+			log_info(global_logger, "[ENET Engine] A client connected...");
 
-                enet_on_connect(engine->host_event);
-            break;
+                	enet_on_connect(engine->host_event);
+            	break;
 
-            case ENET_EVENT_TYPE_RECEIVE:
+            	case ENET_EVENT_TYPE_RECEIVE:
 
-		log_info(global_logger, "[ENET Engine] Some data was received...");
+			log_info(global_logger, "[ENET Engine] Some data was received...");
 
-                enet_on_receive(engine->host_event);
-            break;
+                	enet_on_receive(engine->host_event);
+            	break;
 
-            case ENET_EVENT_TYPE_DISCONNECT:
+            	case ENET_EVENT_TYPE_DISCONNECT:
 
-		log_info(global_logger, "[ENET Engine] A client disconnected...");
+			log_info(global_logger, "[ENET Engine] A client disconnected...");
 
-                enet_on_disconnect(engine->host_event);
-            break;
-        }
+                	enet_on_disconnect(engine->host_event);
+            	break;
+        	}
 	}
 
 	log_info(global_logger, "[ENET Engine New Thread] Host management loop exited...");
