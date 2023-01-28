@@ -73,6 +73,7 @@ int enet_start_engine(ENET_ENGINE* engine, int ENGINE_TYPE) {
         }
 
         engine->host_socket = enet_host_create(&engine->host_addr, 32, 2, 0, 0);
+	//engine->client_socket = enet_host_create(NULL, 1, 2, 0, 0);
 
     } else if (ENGINE_TYPE == ENGINE_TYPE_CLIENT) {
 
@@ -92,12 +93,13 @@ int enet_manage_hosts(ENET_ENGINE* engine, int (*on_connected_callback)(void*),
 	log_info(global_logger, "[ENET Engine New Thread] Managing hosts loop...");
 	log_info(global_logger, "------------------------------------------------");
 
-	while (enet_host_service(engine->host_socket, &engine->host_event, 1000) > 0)
+	while (enet_host_service(engine->host_socket, &engine->host_event, 1000) >= 0)
 	{
         	switch (engine->host_event.type) //.type?...
         	{
 	    	case ENET_EVENT_TYPE_NONE:
 			//do nothing.
+			log_info(global_logger, "[Enet Engine] Event NONE. All is fine.");
 	    	break;
 
             	case ENET_EVENT_TYPE_CONNECT:
@@ -123,8 +125,8 @@ int enet_manage_hosts(ENET_ENGINE* engine, int (*on_connected_callback)(void*),
         	}
 	}
 
-	log_info(global_logger, "[ENET Engine New Thread] Host management loop exited...");
-	log_info(global_logger, "[ENET Engine New Thread] Shutting down or an error occured...");
+	log_info(global_logger, "[ENET Engine New Thread] ** Host management loop exited...");
+	log_info(global_logger, "[ENET Engine New Thread] ** Shutting down or an error occured...");
 
 	return 0;
 }

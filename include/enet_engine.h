@@ -27,6 +27,7 @@ typedef struct ENET_ENGINE {
 	ENetEvent host_event;
 
 	ENetHost * host_socket;
+	ENetHost * client_socket;
 
 	int ENGINE_TYPE;
 
