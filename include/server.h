@@ -38,10 +38,10 @@ typedef struct BUTTLER_SERVER {
 BUTTLER_SERVER* buttler_factory_create_server();
 
 int buttler_init_server(BUTTLER_SERVER* server, char * ipaddr, short port);
-int buttler_server_destructor(BUTTLER_SERVER * this_server);
+int buttler_server_destructor(BUTTLER_SERVER * server);
 
-void buttler_start_server(BUTTLER_SERVER * this_server);
-void buttler_stop_server(BUTTLER_SERVER * this_server);
+void buttler_start_server(BUTTLER_SERVER * server);
+void buttler_stop_server(BUTTLER_SERVER * server);
 
 unsigned long handle_io_requests(void* param); //(SERVER* server, int HOST_TYPE);
 
