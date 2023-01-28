@@ -5,9 +5,9 @@
 #ifndef SERVER_H
 #define SERVER_H
 
-typedef struct SERVER SERVER;
+typedef struct BUTTLER_SERVER BUTTLER_SERVER;
 
-extern SERVER* global_server;
+extern BUTTLER_SERVER* global_server;
 
 #include "protocol.h"
 
@@ -23,7 +23,7 @@ extern SERVER* global_server;
 
 typedef int (*callback)(void*);
 
-typedef struct SERVER {
+typedef struct BUTTLER_SERVER {
         ENET_ENGINE* __engine;
         int __connected_clients;
         char* __ip_address;
@@ -32,16 +32,16 @@ typedef struct SERVER {
         THREAD* __host_thread;
         unsigned int __events[64];
         callback __function_pointer_table [64];
-} SERVER;
+} BUTTLER_SERVER;
 
 // Primary interface.
+BUTTLER_SERVER* buttler_factory_create_server();
 
-int init_server(SERVER* server, char * ipaddr, short port);
-int destructor(SERVER * this_server);
-SERVER* factory_create_server();
+int buttler_init_server(BUTTLER_SERVER* server, char * ipaddr, short port);
+int buttler_server_destructor(BUTTLER_SERVER * this_server);
 
-void start_server(SERVER * this_server);
-void stop_server(SERVER * this_server);
+void buttler_start_server(BUTTLER_SERVER * this_server);
+void buttler_stop_server(BUTTLER_SERVER * this_server);
 
 unsigned long handle_io_requests(void* param); //(SERVER* server, int HOST_TYPE);
 

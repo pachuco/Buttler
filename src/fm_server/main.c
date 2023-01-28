@@ -24,7 +24,7 @@ const int MINIMUM_ARGS = 2;
 
 LOGGER * global_logger = NULL;
 CONFIG * global_config = NULL;
-SERVER * global_server_lobby = NULL;
+BUTTLER_SERVER * global_server_lobby = NULL;
 CIPHER * global_cipher = NULL;
 
 // Counters and configurables.
@@ -136,14 +136,14 @@ int main(int argc, char ** argv)
     { // Server/Lobby
         log_info(global_logger, "[Main] Setting up server and lobby...");
 
-	global_server_lobby = factory_create_server();
-	init_server(global_server_lobby, argv[2], (short)atoi(argv[4]));
+	global_server_lobby = buttler_factory_create_server();
+	buttler_init_server(global_server_lobby, argv[2], (short)atoi(argv[4]));
 
 	log_info(global_logger, "[Main] Setting callback events...");
 	set_callback_events();
 
 	log_info(global_logger, "[Main] Call to start server...");
-        start_server(global_server_lobby); //on a new thread.
+        buttler_start_server(global_server_lobby); //on a new thread.
     }
 
     { // Business Logic

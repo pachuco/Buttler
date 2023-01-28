@@ -4,7 +4,11 @@
 
 #include "server.h"
 
-int init_server(SERVER * this_server, char * ipaddr, short port) {
+BUTTLER_SERVER * buttler_factory_create_server() {
+	return (struct BUTTLER_SERVER*)malloc(sizeof(BUTTLER_SERVER*));
+}
+
+int buttler_init_server(BUTTLER_SERVER * this_server, char * ipaddr, short port) {
 
 	log_info(global_logger, "[Server] Creating Server's ENET_Engine...");
 	this_server->__engine = create_enet_engine();
@@ -23,18 +27,14 @@ int init_server(SERVER * this_server, char * ipaddr, short port) {
 	return 0;
 }
 
-int destructor(SERVER * this_server) {
+int buttler_server_destructor(BUTTLER_SERVER * this_server) {
 
 	enet_cleanup(this_server->__engine);
 
 	return 0;
 }
 
-SERVER * factory_create_server() {
-	return (struct SERVER*)malloc(sizeof(SERVER*));
-}
-
-void start_server(SERVER * this_server) {
+void buttler_start_server(BUTTLER_SERVER * this_server) {
     this_server->__is_listening = 0;
 	log_info(global_logger, "[Server] Server's ENET_Engine set to listening state...");
 
@@ -52,7 +52,7 @@ void start_server(SERVER * this_server) {
 	}
 }
 
-void stop_server(SERVER * this_server) {
+void buttler_stop_server(BUTTLER_SERVER * this_server) {
 	this_server->__is_listening = -1;
 }
 
@@ -60,7 +60,7 @@ void stop_server(SERVER * this_server) {
 
 unsigned long handle_io_requests(void* param) { //(SERVER* server, int HOST_TYPE) { //is on a separate thread.
 
-    SERVER* server = (SERVER*)param;
+    BUTTLER_SERVER* server = (BUTTLER_SERVER*)param;
 
     log_info(global_logger, "[Server New Thread] ENET loop and callback handling...");
 
