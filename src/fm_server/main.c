@@ -133,7 +133,11 @@ int main(int argc, char **argv)
 {
     if (argc < MINIMUM_ARGS)
     {
-        printf("Usage: ...");
+        printf("Usage:\n");
+        printf("fm_server -a \"0.0.0.0\" -p 2345");
+        printf("fm_server --config cfg.ini");
+        printf("\n");
+        
         return 1;
     }
     else
