@@ -118,6 +118,19 @@ int enet_manage_hosts(ENET_ENGINE *engine, int (*on_connected_callback)(void *),
 
             log_info(global_logger, "[ENET Engine] A client connected...");
 
+            // push to client index
+
+            // start client thread
+
+            log_info(global_logger, "[ENET Engine] Creating client thread #N/A...");
+            THREAD *client_thread = factory_create_thread();
+            server->__host_thread = server_thread;
+
+            log_info(global_logger, "[ENET Engine] Running client thread #N/A...");
+            run_thread(server_thread, enet_client_host_thread, (void *)server, ENGINE_TYPE_SERVER);
+
+            // 
+
             enet_on_connect(engine, engine->host_event, on_connected_callback);
             break;
 
@@ -141,6 +154,34 @@ int enet_manage_hosts(ENET_ENGINE *engine, int (*on_connected_callback)(void *),
     log_info(global_logger, "[ENET Engine New Thread] ** Shutting down or an error occured...");
 
     return 0;
+}
+
+int enet_client_host_thread()
+{
+    while (enet_host_service(clientt, &client_event, 1000) >= 0)
+    {
+        switch (engine->host_event.type) //.type?...
+        {
+        case ENET_EVENT_TYPE_NONE:
+            // do nothing.
+            log_info(global_logger, "[Enet Engine: Client #N/A] Event NONE. All is fine.");
+            break;
+
+        case ENET_EVENT_TYPE_RECEIVE:
+
+            log_info(global_logger, "[ENET Engine: Client #N/A] Some data was received...");
+
+            enet_on_receive(engine, client, on_received_callback);
+            break;
+
+        case ENET_EVENT_TYPE_DISCONNECT:
+
+            log_info(global_logger, "[ENET Engine: Client #N/A] A client disconnected...");
+
+            enet_on_disconnect(engine, client, on_disconnected_callback);
+            break;
+        }
+    }
 }
 
 int enet_destruct()

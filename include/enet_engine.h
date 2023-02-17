@@ -49,6 +49,8 @@ int enet_start_engine(ENET_ENGINE *engine, int ENGINE_TYPE);
 int enet_manage_hosts(ENET_ENGINE *engine, int (*on_connected_callback)(void *),
 					  int (*on_received_cacllback)(void *), int (*on_disconnected_callback)(void *));
 
+int enet_client_host_thread();
+
 int enet_destruct();
 
 // Propagators
